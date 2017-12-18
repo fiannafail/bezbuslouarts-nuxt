@@ -1,0 +1,48 @@
+{
+  "name": "bezbuslouarts",
+  "version": "1.0.0",
+  "description": "Nuxt.js project",
+  "author": "fiannafail <fiannafail28@gmail.com>",
+  "private": true,
+  "scripts": {
+    "dev": "backpack dev",
+    "build": "nuxt build && backpack build",
+    "start": "cross-env NODE_ENV=production node build/main.js",
+    "precommit": "npm run lint",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "axios": "^0.16.2",
+    "cross-env": "^5.0.1",
+    "express": "^4.15.3",
+    "firebase": "^4.8.0",
+    "firebase-admin": "^5.5.1",
+    "firebase-functions": "^0.7.3",
+    "nuxt": "^1.0.0-rc3",
+    "nuxt-firebase": "0.0.2",
+    "source-map-support": "^0.4.15",
+    "vue-animate": "0.0.4",
+    "vue-animate-transitions": "^1.0.0",
+    "vuedraggable": "^2.15.0",
+    "vuetify": "^0.17.4",
+    "vuex-persistedstate": "^2.4.2"
+  },
+  "devDependencies": {
+    "babel-eslint": "^7.2.3",
+    "backpack-core": "^0.4.1",
+    "coffee-loader": "^0.9.0",
+    "coffee-script": "^1.12.7",
+    "eslint": "^4.3.0",
+    "eslint-config-standard": "^10.2.1",
+    "eslint-loader": "^1.9.0",
+    "eslint-plugin-html": "^3.1.1",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-node": "^5.1.1",
+    "eslint-plugin-promise": "^3.5.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "node-sass": "^4.7.2",
+    "pug": "^2.0.0-rc.4",
+    "pug-loader": "^2.3.0",
+    "sass-loader": "^6.0.6"
+  }
+}

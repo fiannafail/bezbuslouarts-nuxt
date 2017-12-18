@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # bezbuslouarts
 
 > Nuxt.js project
@@ -20,3 +21,6 @@ For detailed explanation on how things work, checkout the [Nuxt.js docs](https:/
 ## Backpack
 
 We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).
+=======
+# bezbuslouarts
+>>>>>>> ae138af7985350b42d8be25b7a592df155074204

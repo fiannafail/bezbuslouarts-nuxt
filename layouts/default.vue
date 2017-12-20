@@ -15,7 +15,25 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+.movies-section {
+  .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
+    padding: 0px 12px;
+}
+  .tabs__item--active {
+    background-color: red !important;
+  }
+  .tabs__li {
+    margin-left: 15px;
+    margin-right: 15px;
+    .tabs__item {
+      background-color: white;
+    }
+  }
+  .tabs__container {
+    justify-content: center;
+  }
+}
 .btn--small {
   font-size: 12px;
   font-weight: 700;

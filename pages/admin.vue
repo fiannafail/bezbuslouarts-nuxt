@@ -6,21 +6,14 @@
           section(class="preview-photos elevation-4")
             div(class="photos-block")
               h2(class="headline") Фильмы
-<<<<<<< HEAD
               v-list(two-line)
                 div(v-for="(item, index) in Movies" key="index")
                   v-list-tile(avatar v-bind:class="{ active: removedPhotos(index) === true }")
-=======
-              v-list(three-line)
-                div(v-for="(item, index) in Movies" key="index")
-                  v-list-tile(avatar)
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
                     transition(name="fade")
                       div(class="photo-overlay" v-if="removedPhotos(index) === true")
                     v-list-tile-avatar
                       img(:src="item.image" @click="pickPhoto(item)")
                     v-list-tile-content
-<<<<<<< HEAD
                       v-flex
                         v-list-tile-title(class="body-2") Order: {{ item.order }}
                         v-list-tile-sub-title
@@ -36,20 +29,6 @@
                           span Подтвердите порядок
                       v-flex(xs2 d-flex)
                         v-icon(@click="removePhoto(index)") delete
-=======
-                      v-layout(row wrap)
-                        v-flex(xs6)
-                          v-list-tile-title(class="body-2") Order: {{ item.order }}
-                          v-list-tile-sub-title
-                            span(class="body-2") {{ item.title }}
-                            span  &#8212; {{ item.descr }}
-                        v-flex(xs2)
-                          v-select(v-bind:items="orders || data" v-model="selected[index]" :placeholder="valueFunc(index) || item.order.toString()")
-                        v-flex(xs3 d-flex class="buttons")
-                          v-btn(color="primary" @click="setNewOrder(index, selected[index])") OK
-                        v-flex(xs1 d-flex)
-                          v-icon(@click="removePhoto(index)") delete
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
                   v-divider
           section(class="partners elevation-4")
             h2(class="headline") Материалы в СМИ
@@ -131,11 +110,8 @@
                     v-flex(xs8)
                       v-text-field(label="URL-ссылка" v-model="issue.url" hide-details)
             v-btn(color="primary" @click="addIssue" type="submit") Добавить
-<<<<<<< HEAD
             div
               v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="issueAdding")
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
         v-flex(xs6)
           section(class="movies elevation-4")
             h2(class="headline") Добавить фильм
@@ -191,11 +167,8 @@
                     v-flex(xs6)
                       v-text-field(v-model="movie.thumb6" label="Скриншот 6" box hide-details required)
                 v-btn(@click.prevent="addMovie" color="primary" type="submit") Добавить
-<<<<<<< HEAD
                 div
                   v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 </template>
 <script>
 import SignIn from '~/components/SignIn.vue'
@@ -211,12 +184,9 @@ export default {
     ])
   },
   methods: {
-<<<<<<< HEAD
     orderChanged (index) {
       console.log(index, this.selected[index])
     },
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     async editIssue (item) {
       this.$store.commit('issueLoading', true)
       console.log(this.issue)
@@ -237,36 +207,24 @@ export default {
       console.log(this.showEditor)
     },
     async addMovie () {
-<<<<<<< HEAD
       this.$store.commit('set', { type: 'movieAdding', items: true })
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
       const newKey = database.ref().child('Movies').push().key
       const updates = {}
       this.movie.key = newKey
       updates[newKey] = this.movie
       await database.ref().child('Movies').update(updates)
-<<<<<<< HEAD
       await this.$store.dispatch('updatePhotos')
       this.$store.commit('set', { type: 'movieAdding', items: false })
     },
     async addIssue () {
       this.$store.commit('set', { type: 'issueAdding', items: true })
-=======
-      this.$store.dispatch('updatePhotos')
-    },
-    async addIssue () {
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
       const newKey = database.ref().child('Issues').push().key
       const updates = {}
       this.issue.key = newKey
       updates[newKey] = this.issue
       await database.ref().child('Issues').update(updates)
       await this.$store.dispatch('updateIssues')
-<<<<<<< HEAD
       this.$store.commit('set', { type: 'issueAdding', items: false })
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     },
     removedIssues (index) {
       const array = this.deletedIssues
@@ -353,15 +311,12 @@ export default {
     console.log(this.data)
   },
   computed: {
-<<<<<<< HEAD
     movieAdding () {
       return this.$store.state.movieAdding
     },
     issueAdding () {
       return this.$store.state.issueAdding
     },
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     issueLoader () {
       return this.$store.getters.issueLoader
     },
@@ -389,17 +344,11 @@ export default {
     photos: null,
     newOrder: null,
     newUrl: null,
-<<<<<<< HEAD
     select: null,
     deletedPhotos: [],
     deletedIssues: [],
     showEditor: [],
     showTooltip: [],
-=======
-    deletedPhotos: [],
-    deletedIssues: [],
-    showEditor: [],
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     issue: {
       title: null,
       url: null,
@@ -424,12 +373,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-<<<<<<< HEAD
 .list__tile.active {
   background-color: #000012;
 }
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 .input-group--text-field > * {
   padding-left: 8px;
 }
@@ -487,16 +433,11 @@ export default {
   height: 45px;
 }
 .list__tile__sub-title {
-<<<<<<< HEAD
   max-width: 250px;
-=======
-  max-width: 300px;
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
   padding-right: 12px;
 }
 .list .input-group {
   padding-top: 10px;
-
 }
 .list__tile__title {
   word-wrap: break-word;
@@ -516,12 +457,9 @@ export default {
   }
 }
 .preview-photos {
-<<<<<<< HEAD
   .list__tile__content, .list__tile__action {
     width: 50%;
 }
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
   .icon {
     transition: .3s;
     cursor: pointer;
@@ -531,13 +469,10 @@ export default {
   }
   & .buttons {
     align-items: center;
-<<<<<<< HEAD
       max-width: 104px;
   }
   .list__tile__action {
     justify-content: flex-end;
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
   }
   & .input-group__input{
     background-color: white;

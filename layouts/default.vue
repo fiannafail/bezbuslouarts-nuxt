@@ -15,7 +15,6 @@ export default {
 }
 </script>
 
-<<<<<<< HEAD
 <style lang="scss">
 .movies-section {
   .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
@@ -35,9 +34,6 @@ export default {
     justify-content: center;
   }
 }
-=======
-<style>
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 .btn--small {
   font-size: 12px;
   font-weight: 700;

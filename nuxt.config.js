@@ -11,11 +11,8 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-<<<<<<< HEAD
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono:600|Open+Sans:600|Material+Icons|PT+Serif+Caption&amp;subset=cyrillic' },
-=======
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Mono:600|Material+Icons|PT+Serif+Caption&amp;subset=cyrillic' },
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
       { rel: 'stylesheet', href: 'https://unpkg.com/vuetify/dist/vuetify.min.css' }
     ]
   },

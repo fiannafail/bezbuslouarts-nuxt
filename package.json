@@ -22,11 +22,16 @@
     "nuxt": "^1.0.0-rc3",
     "nuxt-firebase": "0.0.2",
     "source-map-support": "^0.4.15",
+<<<<<<< HEAD
     "vue": "^2.5.12",
     "vue-animate": "0.0.4",
     "vue-animate-transitions": "^1.0.0",
     "vue-server-renderer": "^2.5.12",
     "vue-template-compiler": "^2.5.12",
+=======
+    "vue-animate": "0.0.4",
+    "vue-animate-transitions": "^1.0.0",
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     "vuedraggable": "^2.15.0",
     "vuetify": "^0.17.4",
     "vuex-persistedstate": "^2.4.2"

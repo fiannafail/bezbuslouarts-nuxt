@@ -1,6 +1,7 @@
 # dependencies
 node_modules
 
+<<<<<<< HEAD
 serviceAccountKey.json
 plugins/firebase-client-init.js
 plugins/firebase-client-init.js
@@ -8,6 +9,8 @@ server/api/bezbuslouarts-firebase-adminsdk-u4ya1-a576d8a80a.json
 server/bezbuslouarts-firebase-adminsdk-u4ya1-a576d8a80a.json
 
 
+=======
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 # logs
 npm-debug.log
 

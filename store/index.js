@@ -13,8 +13,11 @@ const store = () => new Vuex.Store({
     all: '',
     loading: false,
     issueLoader: false,
+<<<<<<< HEAD
     issueAdding: false,
     movieAdding: false,
+=======
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     previewPhotos: [],
     movies: [],
     issues: []

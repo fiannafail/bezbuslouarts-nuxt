@@ -3,6 +3,7 @@
       section(class="header-section")
         header-section
       section(class="preview-photos")
+<<<<<<< HEAD
         div(v-for="(item, index) in Movies" class="photo")
           div(class="photo-meta")
             h2 {{ item.title }}
@@ -47,18 +48,27 @@
                     v-for="(tab, index) in Movies"
                     :key="index"
                     :href="'#' + tab.key")
+=======
+        div(v-for="(item, index) in previewPhotos" key="index")
+          img(:src="item")
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 </template>
 
 <script>
 //  import axios from '~/plugins/axios'
 import HeaderSection from '../components/HeaderSection'
+<<<<<<< HEAD
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
+=======
+
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 export default {
   async asyncData ({ store }) {
     await store.dispatch('getPreviewPhotos')
   },
   data () {
     return {
+<<<<<<< HEAD
       active: null,
       showMovieInfo: false,
       showMovieTrailer: false,
@@ -72,16 +82,24 @@ export default {
       store.dispatch('getIssues')
     ])
   },
+=======
+      photos: this.previewPhotos
+    }
+  },
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
   components: {
     HeaderSection
   },
   computed: {
+<<<<<<< HEAD
     Issues () {
       return this.$store.state.issues
     },
     Movies () {
       return this.$store.state.movies
     },
+=======
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
     data () {
       return this.$store.state.data
     },
@@ -109,6 +127,7 @@ export default {
 }
 </script>
 
+<<<<<<< HEAD
 <style lang="scss" scoped>
 @mixin movie-expanded-window {
   width: 1140px;
@@ -224,6 +243,9 @@ export default {
     }
   }
 }
+=======
+<style scoped>
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 .title
 {
   margin: 30px 0;
@@ -238,6 +260,7 @@ export default {
 {
   margin: 10px 0;
 }
+<<<<<<< HEAD
 .tabs__li {
   height: 3px !important;
   width: 25px;
@@ -256,10 +279,15 @@ export default {
       width: 100%;
     }
   }
+=======
+.preview-photos {
+  display: flex;
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
   & img {
     width: 100%;
   }
 }
+<<<<<<< HEAD
 .photo {
   position: relative;
 }
@@ -284,4 +312,6 @@ export default {
   transition: .4s;
   background-color: rgba(255, 255, 255, 0.1);
 }
+=======
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
 </style>

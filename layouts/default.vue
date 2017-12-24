@@ -6,6 +6,7 @@
 </template>
 
 <script>
+
 import MyFooter from '~/components/Footer.vue'
 
 export default {
@@ -16,7 +17,79 @@ export default {
 </script>
 
 <style lang="scss">
-.movies-section {
+.soundtrack-section {
+  .soundtracks .track-meta, .soundtracks .vue-sound__playback-time-total,
+  .soundtracks .icon-pause2:before, .soundtracks .icon-play3:before {
+    color: white;
+  }
+  .audio-controls .vue-sound__playback-time-wrapper {
+    display: flex !important;
+    top: 10px;
+    width: calc(100% - 186px) !important;
+    font-family: Open Sans;
+    font-size: 14px;
+    background-color: rgba(224, 33, 6, 0.3)!important;
+    .vue-sound__playback-time-total {
+      width: 100px;
+      position: absolute;
+      right: -115px;
+      top: -15px;
+    }
+    & > * {
+      display: block;
+    }
+}
+.audio-controls .vue-sound-wrapper .vue-sound__player .vue-sound__playback-time-wrapper .vue-sound__playback-time-indicator {
+  background: #e02106 !important;
+}
+.audio-controls {
+  position: relative;
+}
+.track-meta {
+  position: absolute;
+  left: 76px;
+  top: 10px;
+  font-family: Merriweather;
+  font-size: 12px;
+}
+  .audio-controls .vue-sound-wrapper .vue-sound__player {
+    height: auto !important;
+    line-height: inherit !important;
+    display: flex;
+    align-items: center;
+    .icon-play3, .icon-pause2 {
+      margin: 10px 20px;
+    }
+  }
+}
+.vue-sound-wrapper .vue-sound__player .icon-stop2,
+.vue-sound-wrapper .vue-sound__player .icon-download,
+.vue-sound-wrapper .vue-sound__player .icon-spinner11,
+.vue-sound-wrapper .vue-sound__player .icon-volume-high,
+.vue-sound-wrapper .vue-sound__player .volume-slider,
+.vue-sound-wrapper .vue-sound__player .volume-toggle,
+.vue-sound__playback-time-separator, .vue-sound__playback-time-current {
+  display: none !important;
+}
+.icon-pause2::before {
+  font-family: 'Font Awesome\ 5 Free';
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+  display: block;
+  content: "\f28b";
+  color: #495057;
+}
+.icon-play3:before {
+  font-family: 'Font Awesome\ 5 Free';
+  width: 36px;
+  height: 36px;
+  font-size: 36px;
+  display: block;
+  content: "\f144";
+  color: #495057;
+}
+.movies-section, .soundtrack-section, .partners-section  {
   .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {
     padding: 0px 12px;
 }
@@ -27,7 +100,7 @@ export default {
     margin-left: 15px;
     margin-right: 15px;
     .tabs__item {
-      background-color: white;
+      background-color: #5c5c5c;
     }
   }
   .tabs__container {
@@ -43,7 +116,7 @@ export default {
     max-width: 1280px;
     margin: 0 auto !important;
 }
-.movies label, .partners label {
+.movies label, .media label, .soundtrack-section label, .partners-section label {
   padding-left: 8px;
   font-size: 13px;
   font-weight: 500;
@@ -89,5 +162,21 @@ export default {
   font-weight: 300;
   font-size: 2.5em;
   margin: 0;
+}
+.VueCarousel-dot {
+  padding: 15px !important;
+  margin: 50px 0 !important;
+}
+.VueCarousel-dot-inner {
+  border-radius: 0;
+  width: 30px !important;
+  height: 3px !important;
+  background-color: #5c5c5c !important;
+}
+.VueCarousel-dot--active .VueCarousel-dot-inner {
+  background-color: #e02106 !important;
+}
+.VueCarousel-pagination {
+  float: none !important;
 }
 </style>

@@ -6,13 +6,16 @@
           span  белорусское кино.
       div(class="menu")
         ul
-          li Проекты
+          li
+            a(href="#" v-scroll-to="'#movies'") Проекты
           span |
-          li Сотруднчество
+          li
+            a(href="#" v-scroll-to="'.partnership-section'") Сотруднчество
           span |
           li О нас
           span |
-          li Пресса
+          li
+            a(href="#" v-scroll-to="'.media-section'") Пресса
 </template>
 <script>
 export default {
@@ -63,6 +66,10 @@ export default {
   justify-content: space-around;
   color: white;
   text-transform: uppercase;
+  a {
+    color: #ffffff;
+    text-decoration: none;
+  }
   & span {
     color: #e02106;
   }

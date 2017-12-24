@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import { Auth, database } from '~/plugins/firebase-client-init.js'
-import { baseUpdate } from '~/plugins/functions.js'
+import { baseUpdate, baseRetrieve } from '~/plugins/functions.js'
 //  import axios from '~/plugins/axios'
 
 Vue.use(Vuex)
@@ -15,9 +15,12 @@ const store = () => new Vuex.Store({
     issueLoader: false,
     issueAdding: false,
     movieAdding: false,
+    partnerAdding: false,
     previewPhotos: [],
     movies: [],
-    issues: []
+    issues: [],
+    soundtracks: [],
+    partners: []
   },
   getters: {
     issueLoader: (state, getters) => {
@@ -42,9 +45,23 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
+    async updatePartners ({ commit }) {
+      baseUpdate('child_added', 'Partners', (cb) => {
+        //  console.log(cb)
+        commit('set', { type: 'partners', items: cb })
+      })
+    },
+    async getPartners ({ commit }) {
+      const data = await baseRetrieve('Partners')
+      commit('set', { type: 'partners', items: data })
+    },
+    async getSoundtracks ({ commit }) {
+      const data = await baseRetrieve('Soundtracks')
+      commit('set', { type: 'soundtracks', items: data })
+    },
     async IssueEdit ({ commit }) {
       baseUpdate('value', 'Issues', (cb) => {
-        console.log(cb)
+        //  console.log(cb)
         commit('set', { type: 'issues', items: cb })
       })
       commit('issueLoading', false)
@@ -53,7 +70,7 @@ const store = () => new Vuex.Store({
       commit('setLoading', true)
       const userData = await Auth.signInWithEmailAndPassword(payload.email, payload.password)
       commit('set', { type: 'user', items: { email: userData.email, uid: userData.uid } })
-      console.log(this.state.user)
+      //  console.log(this.state.user)
       commit('setLoading', false)
     },
     async getMovies ({ commit }) {
@@ -64,7 +81,7 @@ const store = () => new Vuex.Store({
           const childData = child.val()
           array.push(childData)
         })
-        console.log(array)
+        //  console.log(array)
         commit('set', { type: 'movies', items: array })
       } catch (err) {
         console.log(err)
@@ -79,7 +96,7 @@ const store = () => new Vuex.Store({
           array.push(childData)
         })
         commit('set', { type: 'issues', items: array })
-        console.log(this.state.issues)
+        //  console.log(this.state.issues)
       } catch (err) {
         console.log(err)
       }
@@ -102,7 +119,7 @@ const store = () => new Vuex.Store({
           array.push(childData)
         })
         commit('set', { type: 'previewPhotos', items: array })
-        console.log(this.state.previewPhotos)
+        //  console.log(this.state.previewPhotos)
       } catch (err) {
         console.log(err)
       }

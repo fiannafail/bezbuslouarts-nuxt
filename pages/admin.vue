@@ -30,7 +30,7 @@
                       v-flex(xs2 d-flex)
                         v-icon(@click="removePhoto(index)") delete
                   v-divider
-          section(class="partners elevation-4")
+          section(class="media elevation-4")
             h2(class="headline") Материалы в СМИ
             v-list(two-line)
               div(v-for="(item, index) in Issues" key="index")
@@ -112,6 +112,35 @@
             v-btn(color="primary" @click="addIssue" type="submit") Добавить
             div
               v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="issueAdding")
+          section(class="partners-section elevation-4")
+            h2(class="headline") Партнеры
+            v-list
+              div(v-for="(item, index) in Partners" v-bind:key="item.title")
+                v-list-tile(avatar)
+                  transition(name="fade")
+                    div(class="photo-overlay" v-if="removedPartners(index) === true")
+                  v-list-tile-avatar
+                    img(v-bind:src="item.url")
+                  v-list-tile-content
+                    v-list-tile-title(v-html="item.title")
+                  v-list-tile-action
+                    v-icon(class="icon-edit") mode edit
+                    v-icon(class="icon-remove" @click="removePartner(item, index)") delete
+                v-divider
+              v-container(grid-list-md)
+                v-layout
+                    v-flex(xs3)
+                      v-subheader Логотип
+                    v-flex(xs0)
+                      v-text-field(v-model="partner.url" label="URL ссылка на изображение" hide-details)
+                v-layout
+                    v-flex(xs3)
+                      v-subheader Партнер
+                    v-flex(xs9)
+                      v-text-field(v-model="partner.title" label="Название партнера" hide-details)
+              v-btn(color="primary" @click="addPartner") Добавить
+              div
+                v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="partnerAdding")
         v-flex(xs6)
           section(class="movies elevation-4")
             h2(class="headline") Добавить фильм
@@ -169,21 +198,77 @@
                 v-btn(@click.prevent="addMovie" color="primary" type="submit") Добавить
                 div
                   v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
+          section(class="soundtrack-section elevation-4")
+            h2(class="headline") Саундтреки
+            div
+              div(v-for="(item, index) in Soundtracks" class="audio-controls")
+                no-ssr
+                div
+                  div(class="track-meta")
+                    span {{ item.Singer }}
+                    span {{ item.Title }}
+                vue-audio(file="https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/ShibayanRecords%20nachi%20%E3%81%A8%E3%81%B3%E3%81%A0%E3%81%9B%E3%83%90%E3%83%B3%E3%82%AD%E3%83%83%E3%82%AD(Casual%20Killer%20remix).mp3?alt=media&token=b8b0c32f-abdc-4621-a076-50db4a9bcbb5")
+            v-container(grid-list-md)
+                v-layout(row)
+                  v-flex(xs3)
+                    v-subheader Аудизапись
+                  v-flex(xs9)
+                    v-text-field(v-model="soundtrack.url" label="URL ссылка на аудиозапись" hide-details required)
+                v-layout(row)
+                  v-flex(xs6)
+                    v-layout
+                      v-flex(xs5)
+                        v-subheader Исполнитель
+                      v-flex(xs7)
+                        v-text-field(v-model="soundtrack.singer" label="Исполнитель" hide-details required)
+                  v-flex(xs6)
+                    v-layout
+                      v-flex(xs3)
+                        v-subheader Трек
+                      v-flex(xs9)
+                        v-text-field(v-model="soundtrack.title" label="Название трека" hide-details required)
+                v-btn(color="primary" @click="addSoundtrack") Добавить
 </template>
 <script>
 import SignIn from '~/components/SignIn.vue'
 import { database } from '~/plugins/firebase-client-init.js'
 import PreviewPhotos from '../components/admin/PreviewPhotos'
+import NoSSR from 'vue-no-ssr'
+import VueAudio from 'vue-audio'
+import { addElement } from '~/plugins/functions.js'
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
+
 export default {
   fetch ({ store }) {
     return Promise.all([
       store.dispatch('getPreviewPhotos'),
       store.dispatch('getMovies'),
-      store.dispatch('getIssues')
+      store.dispatch('getIssues'),
+      store.dispatch('getSoundtracks'),
+      store.dispatch('getPartners')
     ])
   },
   methods: {
+    removePartner (item, index) {
+      this.deletedPartners.push(index)
+      database.ref('Partners').child(item.key).remove()
+    },
+    async addPartner () {
+      this.$store.commit('set', { type: 'partnerAdding', items: true })
+      await addElement('Partners', this.partner)
+      await this.$store.dispatch('updatePartners')
+      this.$store.commit('set', { type: 'partnerAdding', items: false })
+    },
+    async addSoundtrack () {
+      //  this.$store.commit('set', { type: 'movieAdding', items: true })
+      const newKey = database.ref().child('Soundtracks').push().key
+      const updates = {}
+      this.soundtrack.key = newKey
+      updates[newKey] = this.soundtrack
+      await database.ref().child('Soundtracks').update(updates)
+      //  await this.$store.dispatch('updatePhotos')
+      //  this.$store.commit('set', { type: 'movieAdding', items: false })
+    },
     orderChanged (index) {
       console.log(index, this.selected[index])
     },
@@ -208,21 +293,13 @@ export default {
     },
     async addMovie () {
       this.$store.commit('set', { type: 'movieAdding', items: true })
-      const newKey = database.ref().child('Movies').push().key
-      const updates = {}
-      this.movie.key = newKey
-      updates[newKey] = this.movie
-      await database.ref().child('Movies').update(updates)
+      await addElement('Movies', this.movie)
       await this.$store.dispatch('updatePhotos')
       this.$store.commit('set', { type: 'movieAdding', items: false })
     },
     async addIssue () {
       this.$store.commit('set', { type: 'issueAdding', items: true })
-      const newKey = database.ref().child('Issues').push().key
-      const updates = {}
-      this.issue.key = newKey
-      updates[newKey] = this.issue
-      await database.ref().child('Issues').update(updates)
+      await addElement('Issues', this.issue)
       await this.$store.dispatch('updateIssues')
       this.$store.commit('set', { type: 'issueAdding', items: false })
     },
@@ -236,6 +313,14 @@ export default {
     },
     removedPhotos (index) {
       const array = this.deletedPhotos
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] === index) {
+          return true
+        }
+      }
+    },
+    removedPartners (index) {
+      const array = this.deletedPartners
       for (let i = 0; i < array.length; i++) {
         if (array[i] === index) {
           return true
@@ -301,16 +386,27 @@ export default {
   },
   components: {
     SignIn,
-    PreviewPhotos
+    PreviewPhotos,
+    'vue-audio': VueAudio,
+    'no-ssr': NoSSR
   },
   created () {
-    console.log(this.previewPhotos)
+    //  console.log(this.previewPhotos)
     for (let i = 1; i < this.previewPhotos.length + 1; i++) {
       this.data.push(i)
     }
-    console.log(this.data)
+    //  console.log(this.data)
   },
   computed: {
+    Partners () {
+      return this.$store.state.partners
+    },
+    Soundtracks () {
+      return this.$store.state.soundtracks
+    },
+    partnerAdding () {
+      return this.$store.state.partnerAdding
+    },
     movieAdding () {
       return this.$store.state.movieAdding
     },
@@ -347,6 +443,7 @@ export default {
     select: null,
     deletedPhotos: [],
     deletedIssues: [],
+    deletedPartners: [],
     showEditor: [],
     showTooltip: [],
     issue: {
@@ -368,11 +465,34 @@ export default {
       thumb4: null,
       thumb5: null,
       thumb6: null
+    },
+    partner: {
+      title: null,
+      url: null
+    },
+    soundtrack: {
+      url: null,
+      singer: null,
+      title: null
     }
   })
 }
 </script>
 <style lang="scss" scoped>
+.partners-section {
+  background-color: white;
+  margin-top: 16px;
+  .list__tile__action i {
+    font-family: 'Material Icons' !important;
+  }
+  .input-group {
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+}
 .list__tile.active {
   background-color: #000012;
 }
@@ -399,9 +519,12 @@ export default {
   background-color: rgba(255, 255, 255, 0.8);
   z-index: 99;
 }
-.partners {
+.media {
   background-color: rgb(255, 255, 255);
   margin-top: 16px;
+  .list__tile__action i {
+    font-family: 'Material Icons' !important;
+  }
   .editor {
     z-index: 1;
     padding-top: 12px;
@@ -550,4 +673,16 @@ button[type="submit"] {
   font-family: Roboto Mono;
   letter-spacing: 0px;
 }
+.soundtrack-section {
+  .input-group {
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  margin-top: 16px;
+  background-color: white;
+}
+
 </style>

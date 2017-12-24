@@ -1,5 +1,5 @@
 <template lang="pug">
-    div(class="wrapper")
+    div(class="body")
       section(class="header-section")
         header-section
       section(class="preview-photos")
@@ -57,7 +57,9 @@
             h2(class="section-headline") Партнерство в кино
             p(class="red-text") Product Placement
             p Начиная с “Вышэй за неба”, BezBuslou arts занимается интеграцией брендов в кино. Дальше будет еще n-ое количество строк текста о том, что это такое. Заключающийся в том, что реквизит, которым пользуются герои в фильмах, телевизионных передачах, компьютерных играх, музыкальных клипах, книгах, на иллюстрациях и картинах — имеет реальный коммерческий аналог. Обычно демонстрируется сам рекламируемый продукт, либо его логотип, или упоминается о его хорошем качестве. В профессиональной литературе product placement принято обозначать аббревиатурой PP. В product placement принято выделять несколько основных составляющих. В product placement принято выделять несколько основных составляющих: источник (компания-заказчик), сообщение (подразумеваются типы и виды РР), канал (любой телевизионный продукт), получатель (целевая аудитория выбранного канала)
-          div(class="slider")
+          div(class="partners-slider")
+            v-carousel(delimiter-icon="remove" hide-controls)
+              v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
       section(class="soundtrack-section")
         div(class="wrapper")
           div(class="description")
@@ -91,6 +93,7 @@ import HeaderSection from '../components/HeaderSection'
 import VueAudio from 'vue-audio'
 import NoSSR from 'vue-no-ssr'
 import { Carousel, Slide } from 'vue-carousel'
+import { mapState } from 'vuex'
 
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
 export default {
@@ -99,7 +102,8 @@ export default {
       store.dispatch('getPreviewPhotos'),
       store.dispatch('getMovies'),
       store.dispatch('getIssues'),
-      store.dispatch('getSoundtracks')
+      store.dispatch('getSoundtracks'),
+      store.dispatch('getPartnersImages')
     ])
   },
   data () {
@@ -117,29 +121,16 @@ export default {
     Carousel,
     Slide
   },
-  computed: {
-    player () {
-      return this.$refs.youtube.player
-    },
-    Soundtracks () {
-      return this.$store.state.soundtracks
-    },
-    Issues () {
-      return this.$store.state.issues
-    },
-    Movies () {
-      return this.$store.state.movies
-    },
-    data () {
-      return this.$store.state.data
-    },
-    all () {
-      return this.$store.state.all
-    },
-    previewPhotos () {
-      return this.$store.state.previewPhotos
-    }
-  },
+  computed: mapState({
+    PartnersImages: 'partnersImages',
+    player: 'player',
+    Soundtracks: 'soundtracks',
+    Issues: 'issues',
+    Movies: 'movies',
+    data: 'data',
+    all: 'all',
+    previewPhotos: 'previewPhotos'
+  }),
   head () {
     return {
       title: 'Users'
@@ -167,6 +158,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.body {
+    background-color: #181818;
+}
 @mixin red-text {
   font-family: Open Sans;
   font-size: 14px;
@@ -182,9 +176,25 @@ export default {
   width: 2px;
   background-color: #e02106;
 }
+.header-section {
+  background-image: url(https://i.pinimg.com/originals/c7/f9/72/c7f97257deca8f7f111c4b37438f5721.jpg);
+  background-size: cover;
+}
 .partnership-section {
   background-color: #202020;
+  margin-top: 150px;
   height: 1000px;
+  .partners-slider {
+    padding-left: 100px;
+    padding-top: 70px;
+  }
+  .carousel {
+    height: 300px;
+    box-shadow: none;
+    .carousel__item {
+      height: calc(100% - 50px);
+    }
+  }
   .wrapper {
     width: 1180px;
     margin: 0 auto;
@@ -390,7 +400,7 @@ export default {
   .movie-info {
     p {
       padding: 24px 0;
-      padding-top: 34px;
+      margin-bottom: 0;
       color: #e02106;
     }
     &:before {
@@ -413,6 +423,7 @@ export default {
 }
 .movies-section {
   background-color: #181818;
+  margin-top: 150px;
   .arrow-left {
     position: relative;
     &:before {
@@ -447,7 +458,8 @@ export default {
     position: relative;
   }
   .tabs__bar {
-    height: 92px;
+    margin-top: 45px;
+    height: 3px;
   }
   .image-container {
     background-size: cover;

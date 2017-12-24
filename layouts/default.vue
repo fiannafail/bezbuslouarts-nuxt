@@ -168,7 +168,7 @@ export default {
   margin: 50px 0 !important;
 }
 .VueCarousel-dot-inner {
-  border-radius: 0;
+  border-radius: 0 !important;
   width: 30px !important;
   height: 3px !important;
   background-color: #5c5c5c !important;
@@ -178,5 +178,30 @@ export default {
 }
 .VueCarousel-pagination {
   float: none !important;
+}
+.partnership-section {
+  .carousel__controls__item--active i {
+    color: #e02106 !important;
+    font-size: 38px !important;
+  }
+  .carousel__controls__item {
+    i {
+      font-size: 32px;
+    }
+    margin: 10px 0 !important;
+  }
+  .carousel__controls {
+    background: transparent;
+  }
+}
+.badge--overlap .badge__badge {
+  box-shadow: 1px 1px 3px rgba(0,0,0,.3);
+  cursor: pointer;
+  .icon {
+      font-size: 17px;
+  }
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 </style>

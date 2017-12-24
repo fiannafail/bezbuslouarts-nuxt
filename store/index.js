@@ -16,11 +16,13 @@ const store = () => new Vuex.Store({
     issueAdding: false,
     movieAdding: false,
     partnerAdding: false,
+    partnersImagesAdding: false,
     previewPhotos: [],
     movies: [],
     issues: [],
     soundtracks: [],
-    partners: []
+    partners: [],
+    partnersImages: []
   },
   getters: {
     issueLoader: (state, getters) => {
@@ -45,6 +47,16 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
+    async updatePartnersImages ({ commit }) {
+      baseUpdate('child_added', 'PartnersImage', (cb) => {
+        //  console.log(cb)
+        commit('set', { type: 'partnersImages', items: cb })
+      })
+    },
+    async getPartnersImages ({ commit }) {
+      const data = await baseRetrieve('PartnersImage')
+      commit('set', { type: 'partnersImages', items: data })
+    },
     async updatePartners ({ commit }) {
       baseUpdate('child_added', 'Partners', (cb) => {
         //  console.log(cb)

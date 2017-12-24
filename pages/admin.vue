@@ -1,5 +1,5 @@
 <template lang="pug">
-  div
+  div(class="body")
     v-container(grid-list-lg)
       v-layout(row)
         v-flex(xs6)
@@ -114,6 +114,27 @@
               v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="issueAdding")
           section(class="partners-section elevation-4")
             h2(class="headline") Партнеры
+            div(class="partners-images")
+              div(class="partners-overlay" v-if="partnersImagesAdding")
+                v-progress-circular(indeterminate v-bind:size="100" color="primary")
+              h3 Карусель
+              div(class="images-box")
+                v-badge(overlay right color="red accent-4" overlap
+                        v-for="(item, index) in PartnersImages" key="index"
+                        v-bind:class="{ 'deleted': removedPartnersImages(index) === true }"
+                        )
+                  v-icon(@click="removePartnersImage(item, index)" slot="badge" dark small) close
+                  img(:src="item.image")
+              div(class="add-partners-images")
+                v-layout
+                  v-flex(xs2)
+                    v-subheader Ссылка
+                  v-flex(xs8)
+                    v-text-field(label="URL ссылка на изображение" v-model="partnersImage" required hide-details)
+                  v-flex(xs2)
+                    v-btn(color="primary" fab dark small v-on:click="addPartnersImage")
+                      v-icon(dark) add
+                v-divider
             v-list
               div(v-for="(item, index) in Partners" v-bind:key="item.title")
                 v-list-tile(avatar)
@@ -245,10 +266,23 @@ export default {
       store.dispatch('getMovies'),
       store.dispatch('getIssues'),
       store.dispatch('getSoundtracks'),
-      store.dispatch('getPartners')
+      store.dispatch('getPartners'),
+      store.dispatch('getPartnersImages')
     ])
   },
   methods: {
+    removePartnersImage (item, index) {
+      this.deletedPartnersImages.push(index)
+      console.log(this.deletedPartnersImages)
+      database.ref('PartnersImage').child(item.key).remove()
+    },
+    async addPartnersImage () {
+      this.$store.commit('set', { type: 'partnersImagesAdding', items: true })
+      await addElement('PartnersImage', { image: this.partnersImage })
+      await this.$store.dispatch('updatePartnersImages')
+      this.partnersImage = null
+      this.$store.commit('set', { type: 'partnersImagesAdding', items: false })
+    },
     removePartner (item, index) {
       this.deletedPartners.push(index)
       database.ref('Partners').child(item.key).remove()
@@ -302,6 +336,14 @@ export default {
       await addElement('Issues', this.issue)
       await this.$store.dispatch('updateIssues')
       this.$store.commit('set', { type: 'issueAdding', items: false })
+    },
+    removedPartnersImages (index) {
+      const array = this.deletedPartnersImages
+      for (let i = 0; i < array.length; i++) {
+        if (array[i] === index) {
+          return true
+        }
+      }
     },
     removedIssues (index) {
       const array = this.deletedIssues
@@ -398,6 +440,12 @@ export default {
     //  console.log(this.data)
   },
   computed: {
+    partnersImagesAdding () {
+      return this.$store.state.partnersImagesAdding
+    },
+    PartnersImages () {
+      return this.$store.state.partnersImages
+    },
     Partners () {
       return this.$store.state.partners
     },
@@ -444,8 +492,10 @@ export default {
     deletedPhotos: [],
     deletedIssues: [],
     deletedPartners: [],
+    deletedPartnersImages: [],
     showEditor: [],
     showTooltip: [],
+    partnersImage: null,
     issue: {
       title: null,
       url: null,
@@ -482,6 +532,46 @@ export default {
 .partners-section {
   background-color: white;
   margin-top: 16px;
+  .partners-images {
+    background-color: #eee!important;
+    position: relative;
+    .partners-overlay {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(255, 255, 255, .75);
+      z-index: 9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    h3 {
+      padding: 16px 0;
+    }
+    .images-box {
+      display: flex;
+      flex-wrap: wrap;
+      & > * {
+        position: relative;
+        display: block;
+        width: calc(25% - 16px);
+        margin: 8px;
+        transition: .4s;
+        &.deleted {
+          opacity: .3;
+          transition: .4s;
+        }
+      }
+      img {
+        width: 100%;
+        width: 100%;
+        box-sizing: border-box;
+        border: 3px solid #fff;
+        border-radius: 3px;
+        box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.3);
+      }
+    }
+  }
   .list__tile__action i {
     font-family: 'Material Icons' !important;
   }

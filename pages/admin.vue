@@ -260,6 +260,7 @@ import { addElement } from '~/plugins/functions.js'
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
 
 export default {
+  middleware: 'auth-check',
   fetch ({ store }) {
     return Promise.all([
       store.dispatch('getPreviewPhotos'),

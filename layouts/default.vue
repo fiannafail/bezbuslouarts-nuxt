@@ -86,7 +86,7 @@ export default {
   height: 36px;
   font-size: 36px;
   display: block;
-  content: "\f144";
+  content: "\f144" !important;
   color: #495057;
 }
 .movies-section, .soundtrack-section, .partners-section  {

@@ -3,5 +3,5 @@ const key = require('../serviceAccountKey.json')
 
 module.exports = admin.initializeApp({
   credential: admin.credential.cert(key),
-  databaseURL: `https://${key.project_id}.firebaseio.com`
+  databaseURL: 'https://bezbuslouarts.firebaseio.com'
 })

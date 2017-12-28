@@ -25,7 +25,21 @@ const store = () => new Vuex.Store({
     partners: [],
     partnersImages: [],
     sectionsMeta: [],
-    members: []
+    members: [],
+    movie: {
+      order: null,
+      title: null,
+      photo: null,
+      descr: null,
+      year: null,
+      trailer: null,
+      thumb1: null,
+      thumb2: null,
+      thumb3: null,
+      thumb4: null,
+      thumb5: null,
+      thumb6: null
+    }
   },
   getters: {
     issueLoader: (state, getters) => {
@@ -50,6 +64,31 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
+    nuxtServerInit ({ commit }, { req }) {
+      if (req.user) {
+        commit('set', { type: 'user', items: req.user })
+      }
+    },
+    cleanMovie ({ commit }) {
+      const movie = {
+        order: null,
+        title: null,
+        photo: null,
+        descr: null,
+        year: null,
+        trailer: null,
+        thumb1: null,
+        thumb2: null,
+        thumb3: null,
+        thumb4: null,
+        thumb5: null,
+        thumb6: null
+      }
+      commit('set', { type: 'movie', items: movie })
+    },
+    editMovie ({ commit }, payload) {
+      commit('set', { type: 'movie', items: payload })
+    },
     async updateMembers ({ commit }) {
       baseUpdate('child_added', 'Members', (cb) => {
         commit('set', { type: 'members', items: cb })

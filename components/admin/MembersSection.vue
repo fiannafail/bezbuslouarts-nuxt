@@ -5,7 +5,7 @@
       div(v-for="(item, index) in Members")
         v-list-tile(avatar)
           transition(name="fade")
-            div(class="photo-overlay" v-if="removedMembers(index) === true")
+            div(class="photo-overlay" v-if="showRemovedMembers(index) === true")
           v-list-tile-avatar
             img(v-bind:src="item.photo")
           v-list-tile-content
@@ -49,7 +49,7 @@ import { addElement } from '~/plugins/functions.js'
 
 export default {
   data: () => ({
-    removerMembers: [],
+    removedMembers: [],
     member: {
       name: null,
       position: null,
@@ -59,8 +59,8 @@ export default {
   }),
   props: ['Members'],
   methods: {
-    removedMembers (index) {
-      const array = this.removerMembers
+    showRemovedMembers (index) {
+      const array = this.removedMembers
       for (let i = 0; i < array.length; i++) {
         if (array[i] === index) {
           return true
@@ -68,7 +68,7 @@ export default {
       }
     },
     removeMember (item, index) {
-      this.removerMembers.push(index)
+      this.removedMembers.push(index)
       database.ref('Members').child(item.key).remove()
     },
     async addMember () {

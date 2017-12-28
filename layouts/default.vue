@@ -17,7 +17,14 @@ export default {
 </script>
 
 <style lang="scss">
-
+.input-group--select {
+  .input-group__selections {
+      overflow: inherit !important;
+    }
+  .input-group__input {
+    justify-content: flex-end;
+  }
+}
 .soundtrack-section {
   .soundtracks .track-meta, .soundtracks .vue-sound__playback-time-total,
   .soundtracks .icon-pause2:before, .soundtracks .icon-play3:before {
@@ -117,7 +124,7 @@ export default {
     max-width: 1280px;
     margin: 0 auto !important;
 }
-.movies label, .media label, .soundtrack-section label, .partners-section label {
+.movies label, .media-section label, .soundtrack-section label, .partners-section label {
   padding-left: 8px;
   font-size: 13px;
   font-weight: 500;
@@ -203,6 +210,11 @@ export default {
   }
   &:hover {
     transform: scale(1.1);
+  }
+}
+@media screen and (max-width: 480px) {
+  .wrapper {
+    width: 100% !important
   }
 }
 </style>

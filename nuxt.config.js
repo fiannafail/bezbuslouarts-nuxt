@@ -26,6 +26,9 @@ module.exports = {
     { src: '~/plugins/firebase-client-init.js', ssr: false },
     { src: '~/plugins/auth-cookie.js', ssr: false }
   ],
+  serverMiddleware: [
+    '~/serverMiddleware/validateFirebaseIdToken'
+  ],
   /*
   ** Global CSS
   */

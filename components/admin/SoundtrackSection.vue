@@ -29,6 +29,7 @@
               v-flex(xs9)
                 v-text-field(v-model="soundtrack.title" label="Название трека" hide-details required)
         v-btn(color="primary" @click="addSoundtrack") Добавить
+        v-divider
         h2 Редактирование секции
         v-container(grid-list-md)
           v-layout
@@ -99,4 +100,9 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.soundtrack-section {
+  h2, button {
+    margin: 18px 0;
+  }
+}
 </style>

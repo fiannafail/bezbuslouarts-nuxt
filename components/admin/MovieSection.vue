@@ -1,0 +1,121 @@
+<template lang="pug">
+section(class="movies-section elevation-4")
+  h2(class="headline") {{ movie.order ? 'Редактировать фильм' : 'Добавить фильм' }}
+  v-container(grid-list-md)
+    v-form
+      v-layout(row)
+        v-flex(xs3)
+          v-subheader Название
+        v-flex(xs9)
+         v-text-field(v-model="movie.title" required hide-details label="Название фильма")
+      v-layout(row)
+        v-flex(xs6)
+          v-layout(row)
+            v-flex(xs6)
+              v-subheader Порядок
+            v-flex(xs6)
+              v-text-field(v-model="movie.order" required hide-details label="Порядок отображения")
+        v-flex(xs6)
+          v-layout(row)
+            v-flex(xs4)
+              v-subheader Год
+            v-flex(xs8)
+             v-text-field(v-model="movie.year" required name="input-2" hide-details label="Год выпуска")
+      v-layout(row)
+        v-flex(xs3)
+          v-subheader Большое изображение
+        v-flex(xs9)
+          v-text-field(v-model="movie.image" required name="input-3" label="URL ссылка на главное изображение")
+      v-layout(row)
+        v-flex(xs3)
+          v-subheader Трейлер
+        v-flex(xs9)
+          v-text-field(v-model="movie.trailer" required name="input-4" label="URL ссылка на трейлер")
+      v-layout(row)
+        v-flex(xs3)
+          v-subheader Описание
+        v-flex(xs9)
+          v-text-field(v-model="movie.descr" required name="input-5" textarea)
+      div(class="screens")
+        v-layout(row)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb1" label="Скриншот 1" box hide-details required)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb2" label="Скриншот 2" box hide-details required)
+        v-layout(row)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb3" label="Скриншот 3" box hide-details required)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb4" label="Скриншот 4" box hide-details required)
+        v-layout(row)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb5" label="Скриншот 5" box hide-details required)
+          v-flex(xs6)
+            v-text-field(v-model="movie.thumb6" label="Скриншот 6" box hide-details required)
+      v-btn(@click.prevent="addMovie" color="primary" type="submit" v-if="!movie.order") Добавить
+      div(v-else)
+        v-btn(@click.prevent="cancel" dark color="red accent-4") Отменить
+        v-btn(@click.prevent="saveMovie" color="primary" type="submit") Сохранить
+      div
+        v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
+</template>
+<script>
+import { addElement } from '~/plugins/functions.js'
+import { mapState } from 'vuex'
+//  import { database } from '~/plugins/firebase-client-init.js'
+//  import axios from '~/plugins/axios.js'
+import { database } from '~/plugins/firebase-client-init.js'
+export default {
+  data: () => ({
+  }),
+  methods: {
+    cancel () {
+      this.$store.dispatch('cleanMovie')
+    },
+    async saveMovie () {
+      await database.ref('Movies/' + 'this.movie.key').update(this.movie)
+    },
+    async addMovie () {
+      this.$store.commit('set', { type: 'movieAdding', items: true })
+      await addElement('Movies', this.movie)
+      await this.$store.dispatch('updatePhotos')
+      this.$store.commit('set', { type: 'movieAdding', items: false })
+    }
+  },
+  computed: mapState({
+    movieAdding: 'movieAdding',
+    movie: 'movie'
+  })
+}
+</script>
+<style lang="scss" scoped>
+.movies-section {
+  background-color: #f5f5f5;
+  button[type="submit"] {
+    margin: 32px 0;
+  }
+  .input-group--text-field-box label {
+    font-size: 14px;
+  }
+  .container {
+    background-color: #fff;
+  }
+  .input-group {
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+  }
+  li {
+    list-style: none;
+  }
+  .layout {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  .subheader {
+    text-align: left;
+  }
+}
+</style>

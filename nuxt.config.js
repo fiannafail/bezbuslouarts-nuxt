@@ -22,7 +22,7 @@ module.exports = {
     '~/plugins/vuetify.js',
     '~/plugins/global.js',
     '~/plugins/functions.js',
-    { src: '~/plugins/localStorage.js', ssr: false },
+    //  { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~/plugins/firebase-client-init.js', ssr: false },
     { src: '~/plugins/auth-cookie.js', ssr: false }
   ],

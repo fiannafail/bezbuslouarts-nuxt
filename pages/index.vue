@@ -54,26 +54,14 @@
         p Сотрудничество
         div(class="wrapper")
           div(class="description")
-            h2(class="section-headline") Партнерство в кино
-            p(class="red-text") Product Placement
-            p Начиная с “Вышэй за неба”, BezBuslou arts занимается интеграцией брендов в кино. Дальше будет еще n-ое количество строк текста о том, что это такое. Заключающийся в том, что реквизит, которым пользуются герои в фильмах, телевизионных передачах, компьютерных играх, музыкальных клипах, книгах, на иллюстрациях и картинах — имеет реальный коммерческий аналог. Обычно демонстрируется сам рекламируемый продукт, либо его логотип, или упоминается о его хорошем качестве. В профессиональной литературе product placement принято обозначать аббревиатурой PP. В product placement принято выделять несколько основных составляющих. В product placement принято выделять несколько основных составляющих: источник (компания-заказчик), сообщение (подразумеваются типы и виды РР), канал (любой телевизионный продукт), получатель (целевая аудитория выбранного канала)
+            h2(class="section-headline") {{ sectionsMeta.Partners.title }}
+            p(class="red-text") {{ sectionsMeta.Partners.subheader }}
+            p {{ sectionsMeta.Partners.text }}
           div(class="partners-slider")
             v-carousel(delimiter-icon="remove" hide-controls)
               v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
-      section(class="soundtrack-section")
-        div(class="wrapper")
-          div(class="description")
-            h2(class="section-headline") Разработка музыки и саундтреков
-            p Текст про то, как можно заказать разработку музыки и саундтреков от такого талантилвого музыканта, как Дмитрий. Ключевые моменты какие-то. Звуковая дорожка — музыкальное сопровождение какого-либо материала: фильма, мюзикла, аниме, телепередачи, компьютерной игры, книги и так далее, а также музыкальный альбом содержащий композиции из данного произведения.
-          div(class="soundtracks")
-            div
-              div(v-for="(item, index) in Soundtracks" class="audio-controls")
-                no-ssr
-                div
-                  div(class="track-meta")
-                    span {{ item.Singer }}
-                    span {{ item.Title }}
-                vue-audio(file="https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/ShibayanRecords%20nachi%20%E3%81%A8%E3%81%B3%E3%81%A0%E3%81%9B%E3%83%90%E3%83%B3%E3%82%AD%E3%83%83%E3%82%AD(Casual%20Killer%20remix).mp3?alt=media&token=b8b0c32f-abdc-4621-a076-50db4a9bcbb5")
+      soundtrack-section
+      members-section(:Members="members")
       section(class="media-section")
         p СМИ
         h1(class="section-headline") О нас пишут
@@ -89,7 +77,9 @@
 
 <script>
 //  import axios from '~/plugins/axios'
+import MembersSection from '../components/MembersSection'
 import HeaderSection from '../components/HeaderSection'
+import SoundtrackSection from '../components/SoundtrackSection'
 import VueAudio from 'vue-audio'
 import NoSSR from 'vue-no-ssr'
 import { Carousel, Slide } from 'vue-carousel'
@@ -103,7 +93,9 @@ export default {
       store.dispatch('getMovies'),
       store.dispatch('getIssues'),
       store.dispatch('getSoundtracks'),
-      store.dispatch('getPartnersImages')
+      store.dispatch('getPartnersImages'),
+      store.dispatch('getTexts'),
+      store.dispatch('getMembers')
     ])
   },
   data () {
@@ -116,6 +108,8 @@ export default {
   },
   components: {
     HeaderSection,
+    MembersSection,
+    SoundtrackSection,
     'vue-audio': VueAudio,
     'no-ssr': NoSSR,
     Carousel,
@@ -129,7 +123,9 @@ export default {
     Movies: 'movies',
     data: 'data',
     all: 'all',
-    previewPhotos: 'previewPhotos'
+    previewPhotos: 'previewPhotos',
+    sectionsMeta: 'sectionsMeta',
+    members: 'members'
   }),
   head () {
     return {
@@ -157,7 +153,7 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .body {
     background-color: #181818;
 }
@@ -290,44 +286,6 @@ export default {
   font-family: Merriweather;
   font-size: 40px;
   color: white;
-}
-.soundtrack-section {
-  .track-meta {
-    color: white;
-  }
-  .wrapper {
-    width: 1140px;
-    margin: 0 auto;
-    display: flex;
-    justify-content: space-between;
-    background-color: transparent;
-    .soundtracks {
-      width: calc(50% - 50px);
-      padding-left: 50px;
-    }
-    .description {
-      width: 50%;
-    }
-    .soundtracks, .description {
-      .section-headline {
-        line-height: 1.63;
-      }
-      padding-top: 135px;
-      max-width: 50%;
-      color: #bbbbbb;
-      font-family: Open Sans;
-      font-size: 14px;
-      line-height: 1.93;
-    }
-    &:before{
-      @include red-line;
-      margin-top: 0;
-      position: absolute;
-    }
-  }
-
-  background-color: #202020;
-  height: 600px;
 }
 @mixin movie-expanded-window {
   width: 1140px;

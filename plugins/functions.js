@@ -1,5 +1,12 @@
 import { database } from './firebase-client-init.js'
 
+export const baseElementUpdate = async (type, ref, data) => {
+  try {
+    await database.ref(type + '/' + ref + '/').update(data)
+  } catch (err) {
+    console.log(err)
+  }
+}
 export const baseUpdate = async (type, data, cb) => {
   let arr = []
   await database.ref(data).on(type, snapshot => {
@@ -17,12 +24,18 @@ export const baseUpdate = async (type, data, cb) => {
 export const baseRetrieve = async (type, cb) => {
   let array = []
   try {
-    const data = await database.ref(type).once('value')
-    data.forEach((child) => {
-      const childData = child.val()
-      array.push(childData)
-    })
-    return array
+    if (type === 'Texts') {
+      const data = await database.ref(type).once('value')
+      console.log(data.val())
+      return data.val()
+    } else {
+      const data = await database.ref(type).once('value')
+      data.forEach((child) => {
+        const childData = child.val()
+        array.push(childData)
+      })
+      return array
+    }
   } catch (err) {
     console.log(err)
   }

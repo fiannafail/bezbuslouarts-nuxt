@@ -145,7 +145,6 @@
                   v-list-tile-content
                     v-list-tile-title(v-html="item.title")
                   v-list-tile-action
-                    v-icon(class="icon-edit") mode edit
                     v-icon(class="icon-remove" @click="removePartner(item, index)") delete
                 v-divider
               v-container(grid-list-md)
@@ -162,6 +161,24 @@
               v-btn(color="primary" @click="addPartner") Добавить
               div
                 v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="partnerAdding")
+              v-divider
+              div(class="partners-text")
+                h2 Редактирование блока
+                v-container(grid-list-md)
+                  v-layout
+                    v-flex(xs4)
+                      v-subheader Заголовок блока
+                    v-flex(xs8)
+                      v-text-field(v-model="SectionsMeta.Partners.title" hide-details label="Заголовок секции")
+                  v-layout
+                    v-flex(xs4)
+                      v-subheader Подзаголовок
+                    v-flex(xs8)
+                      v-text-field(v-model="SectionsMeta.Partners.subheader" hide-details label="Подзаголовок секции")
+                  v-layout
+                    v-flex(xs12)
+                      v-text-field(textarea v-model="SectionsMeta.Partners.text" label="Основной текст")
+                  v-btn(color="primary" @click="editSectionMeta('Partners')") Сохранить изменения
         v-flex(xs6)
           section(class="movies elevation-4")
             h2(class="headline") Добавить фильм
@@ -219,44 +236,18 @@
                 v-btn(@click.prevent="addMovie" color="primary" type="submit") Добавить
                 div
                   v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
-          section(class="soundtrack-section elevation-4")
-            h2(class="headline") Саундтреки
-            div
-              div(v-for="(item, index) in Soundtracks" class="audio-controls")
-                no-ssr
-                div
-                  div(class="track-meta")
-                    span {{ item.Singer }}
-                    span {{ item.Title }}
-                vue-audio(file="https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/ShibayanRecords%20nachi%20%E3%81%A8%E3%81%B3%E3%81%A0%E3%81%9B%E3%83%90%E3%83%B3%E3%82%AD%E3%83%83%E3%82%AD(Casual%20Killer%20remix).mp3?alt=media&token=b8b0c32f-abdc-4621-a076-50db4a9bcbb5")
-            v-container(grid-list-md)
-                v-layout(row)
-                  v-flex(xs3)
-                    v-subheader Аудизапись
-                  v-flex(xs9)
-                    v-text-field(v-model="soundtrack.url" label="URL ссылка на аудиозапись" hide-details required)
-                v-layout(row)
-                  v-flex(xs6)
-                    v-layout
-                      v-flex(xs5)
-                        v-subheader Исполнитель
-                      v-flex(xs7)
-                        v-text-field(v-model="soundtrack.singer" label="Исполнитель" hide-details required)
-                  v-flex(xs6)
-                    v-layout
-                      v-flex(xs3)
-                        v-subheader Трек
-                      v-flex(xs9)
-                        v-text-field(v-model="soundtrack.title" label="Название трека" hide-details required)
-                v-btn(color="primary" @click="addSoundtrack") Добавить
+          soundtrack-section
+          members-section( :Members="Members")
 </template>
 <script>
 import SignIn from '~/components/SignIn.vue'
+import MembersSection from '~/components/admin/MembersSection.vue'
+import SoundtrackSection from '~/components/admin/SoundtrackSection.vue'
 import { database } from '~/plugins/firebase-client-init.js'
 import PreviewPhotos from '../components/admin/PreviewPhotos'
 import NoSSR from 'vue-no-ssr'
 import VueAudio from 'vue-audio'
-import { addElement } from '~/plugins/functions.js'
+import { addElement, baseElementUpdate } from '~/plugins/functions.js'
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
 
 export default {
@@ -268,10 +259,16 @@ export default {
       store.dispatch('getIssues'),
       store.dispatch('getSoundtracks'),
       store.dispatch('getPartners'),
-      store.dispatch('getPartnersImages')
+      store.dispatch('getPartnersImages'),
+      store.dispatch('getTexts'),
+      store.dispatch('getMembers')
     ])
   },
   methods: {
+    editSectionMeta (ref) {
+      console.log(ref)
+      baseElementUpdate('Texts', ref, this.SectionsMeta.Partners)
+    },
     removePartnersImage (item, index) {
       this.deletedPartnersImages.push(index)
       console.log(this.deletedPartnersImages)
@@ -430,17 +427,24 @@ export default {
   components: {
     SignIn,
     PreviewPhotos,
+    MembersSection,
+    SoundtrackSection,
     'vue-audio': VueAudio,
     'no-ssr': NoSSR
   },
   created () {
-    //  console.log(this.previewPhotos)
+    this.SectionsMeta = this.sectionsMeta
     for (let i = 1; i < this.previewPhotos.length + 1; i++) {
       this.data.push(i)
     }
-    //  console.log(this.data)
   },
   computed: {
+    Members () {
+      return this.$store.state.members
+    },
+    sectionsMeta () {
+      return this.$store.state.sectionsMeta
+    },
     partnersImagesAdding () {
       return this.$store.state.partnersImagesAdding
     },
@@ -525,14 +529,49 @@ export default {
       url: null,
       singer: null,
       title: null
+    },
+    SectionsMeta: {
+      Partners: {
+        title: null,
+        subheader: null,
+        text: null
+      }
     }
   })
 }
 </script>
-<style lang="scss" scoped>
+<style lang="scss">
+section {
+  margin-top: 16px;
+  background-color: white;
+  .input-group {
+    padding-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+    margin-left: -8px;
+    margin-right: -8px;
+    label {
+      padding-left: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      top: 12px;
+    }
+  }
+  .list__tile__action i {
+      font-family: Material Icons!important;
+  }
+}
 .partners-section {
   background-color: white;
   margin-top: 16px;
+  .partners-text {
+    h2 {
+      margin: 22px 0;
+    }
+    .input-group--textarea {
+      margin-left: 0px;
+    }
+  }
   .partners-images {
     background-color: #eee!important;
     position: relative;

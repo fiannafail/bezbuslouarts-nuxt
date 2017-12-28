@@ -17,6 +17,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 .soundtrack-section {
   .soundtracks .track-meta, .soundtracks .vue-sound__playback-time-total,
   .soundtracks .icon-pause2:before, .soundtracks .icon-play3:before {

@@ -15,6 +15,7 @@ const store = () => new Vuex.Store({
     issueLoader: false,
     issueAdding: false,
     movieAdding: false,
+    memberAdding: false,
     partnerAdding: false,
     partnersImagesAdding: false,
     previewPhotos: [],
@@ -22,7 +23,9 @@ const store = () => new Vuex.Store({
     issues: [],
     soundtracks: [],
     partners: [],
-    partnersImages: []
+    partnersImages: [],
+    sectionsMeta: [],
+    members: []
   },
   getters: {
     issueLoader: (state, getters) => {
@@ -47,6 +50,19 @@ const store = () => new Vuex.Store({
     }
   },
   actions: {
+    async updateMembers ({ commit }) {
+      baseUpdate('child_added', 'Members', (cb) => {
+        commit('set', { type: 'members', items: cb })
+      })
+    },
+    async getMembers ({ commit }) {
+      const data = await baseRetrieve('Members')
+      commit('set', { type: 'members', items: data })
+    },
+    async getTexts ({ commit }) {
+      const data = await baseRetrieve('Texts')
+      commit('set', { type: 'sectionsMeta', items: data })
+    },
     async updatePartnersImages ({ commit }) {
       baseUpdate('child_added', 'PartnersImage', (cb) => {
         //  console.log(cb)

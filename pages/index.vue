@@ -494,4 +494,31 @@ export default {
   transition: .4s;
   background-color: rgba(255, 255, 255, 0.1);
 }
+@media screen and (max-width: 480px) {
+  .media-section .VueCarousel {
+    width: 100%;
+  }
+  .media-section .meta-info {
+    padding: 10px;
+  }
+  .media-section .VueCarousel-slide > div {
+    margin: 5px;
+  }
+  .members-section .member-block,
+  .soundtrack-section .wrapper {
+    flex-direction: column;
+    padding: 0 15px;
+  }
+  .soundtrack-section .wrapper .description,
+  .soundtrack-section .wrapper .soundtracks {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  .title-block {
+    width: 80%;
+    p {
+      font-style: 24px;
+    }
+  }
+}
 </style>

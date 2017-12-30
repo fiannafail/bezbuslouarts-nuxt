@@ -12,6 +12,7 @@
           v-tabs-items
             v-tabs-content(
               v-for="(tab, i) in Movies"
+              v-bind:style="{ order: tab.order }"
               :key="i"
               :id="tab.key")
               v-card(flat)
@@ -73,6 +74,7 @@
                 div(class="meta-info")
                   h3 {{ language === 'ru' ? item.title : item.titleEN }}
                   p {{ language === 'ru' ? item.magazine : item.magazineEN }}
+      contacts-section
 </template>
 
 <script>
@@ -80,6 +82,7 @@
 import MembersSection from '../components/MembersSection'
 import HeaderSection from '../components/HeaderSection'
 import SoundtrackSection from '../components/SoundtrackSection'
+import ContactsSection from '../components/ContactsSection'
 import VueAudio from 'vue-audio'
 import NoSSR from 'vue-no-ssr'
 import { Carousel, Slide } from 'vue-carousel'
@@ -109,6 +112,7 @@ export default {
   components: {
     HeaderSection,
     MembersSection,
+    ContactsSection,
     SoundtrackSection,
     'vue-audio': VueAudio,
     'no-ssr': NoSSR,
@@ -324,6 +328,7 @@ export default {
   width: 1140px;
   margin: 0 auto;
   justify-content: space-between;
+  order: 99;
 }
 .movie-wrap {
   display: flex;
@@ -382,6 +387,11 @@ export default {
 .movies-section {
   background-color: #181818;
   margin-top: 150px;
+  .tabs__items {
+    display: flex;
+    flex-direction: column;
+  }
+
   .arrow-left {
     position: relative;
     &:before {
@@ -418,6 +428,7 @@ export default {
   .tabs__bar {
     margin-top: 45px;
     height: 3px;
+    order: 100;
   }
   .image-container {
     background-size: cover;

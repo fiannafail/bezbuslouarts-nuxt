@@ -16,10 +16,6 @@ section(class="movie-list elevation-4")
                 span(class="body-2") {{ item.title }}
                 span  &#8212; {{ item.descr }}
           v-list-tile-action
-            v-flex(d-flex xs3)
-              v-select(v-bind:items="orders || data" hide-details v-model="selected[index]" :value="select" :placeholder="valueFunc(index) || item.order.toString()")
-            v-flex(d-flex class="buttons")
-              v-btn(color="primary" @click="setNewOrder(index, selected[index])") OK
             v-flex(xs2 d-flex)
               v-icon(@click="removeMovie(index)") delete
             v-flex(xs2 d-flex)

@@ -2,7 +2,6 @@
   div
     v-app
       nuxt
-      my-footer
 </template>
 
 <script>
@@ -172,6 +171,10 @@ export default {
   font-weight: 300;
   font-size: 2.5em;
   margin: 0;
+}
+.title-block span {
+  color: #e02106;
+  display: block;
 }
 .VueCarousel-dot {
   padding: 15px !important;

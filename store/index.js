@@ -28,10 +28,11 @@ const store = () => new Vuex.Store({
     sectionsMeta: [],
     members: [],
     movie: {
-      order: null,
-      title: [],
+      title: null,
+      titleEN: null,
       photo: null,
       descr: null,
+      descrEN: null,
       year: null,
       trailer: null,
       thumb1: null,
@@ -79,10 +80,11 @@ const store = () => new Vuex.Store({
     },
     cleanMovie ({ commit }) {
       const movie = {
-        order: null,
         title: null,
+        titleEN: null,
         photo: null,
         descr: null,
+        descrEN: null,
         year: null,
         trailer: null,
         thumb1: null,

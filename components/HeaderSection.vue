@@ -2,7 +2,8 @@
   div(id="HeaderSection")
     div(class="wrapper")
       div(class="title-block")
-        p(v-lang.title)
+        p(v-lang.title) Мы создаем независимое
+          span белорусское кино.
       div(class="menu")
         ul
           li
@@ -96,8 +97,10 @@ export default {
     font-family: PT Serif Caption;
     color: white;
     text-align: center;
+    width: 100%;
     & span {
       color: #e02106;
+      display: block;
     }
   }
 }

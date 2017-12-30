@@ -4,7 +4,7 @@ import MultiLanguage from 'vue-multilanguage'
 Vue.use(MultiLanguage, {
   default: 'en',
   en: {
-    title: 'We develop independent belarusian cinema',
+    title: 'We develop independent <span>belarusian cinema</span>',
     lang: 'На русском языке',
     aboutMovie: 'About the Movie',
     watchTrailer: 'Watch a Trailer',
@@ -19,7 +19,7 @@ Vue.use(MultiLanguage, {
     toProjects: 'Back to Projects'
   },
   ru: {
-    title: 'Мы создаем независимое белорусское кино.',
+    title: 'Мы создаем независимое <span>белорусское кино.</span>',
     lang: 'In English',
     aboutMovie: 'О Фильме',
     watchTrailer: 'Смотреть трейлер',

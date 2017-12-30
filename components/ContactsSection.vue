@@ -1,0 +1,82 @@
+<template lang="pug">
+  section(class="contacts-section")
+    div(class="wrapper")
+      div(class="sectiom-meta")
+        p(class="red-text") Свяжитесь с нами
+        h2(class="section-headline") Контакты
+      div(class="contacts-wrapper")
+        div(class="map")
+        div(class="contacts")
+          p пр. Независимости, 4, 220030, г. Минск, Республика Беларусь.
+          p +375 29 258 65 43
+          p hello@bezbuslou.art
+</template>
+<script>
+export default {
+  data: () => ({
+
+  })
+}
+</script>
+<style lang="scss" scoped>
+@mixin red-line {
+  margin-top: 18px;
+  display: block;
+  content: "";
+  height: 125px;
+  width: 2px;
+  background-color: #e02106;
+}
+@mixin red-text {
+  font-family: Open Sans;
+  font-size: 14px;
+  font-weight: 600;
+  color: #e02106;
+  text-transform: uppercase;
+}
+.contacts-section {
+  background-color: #181818;
+  .contacts-wrapper {
+    width: 800px;
+    height: 500px;
+    display: flex;
+    border: solid 1px rgba(143, 143, 143, 0.5);
+    .map {
+      width: 66%;
+    }
+    .contacts {
+      width: 33%;
+      padding: 40px;
+      color: #bababa;
+      line-height: 1.93;
+      font-family: Open Sans;
+    }
+  }
+  .sectiom-meta {
+    position: absolute;
+    left: 0;
+    top: 140px;
+    .section-headline {
+      font-size: 55px;
+    }
+  }
+  .wrapper {
+    width: 1180px;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    position: relative;
+    display: flex;
+    justify-content: space-around;
+    &:before {
+      @include red-line;
+      left: 0px;
+      position: absolute;
+    }
+  }
+  .red-text {
+    @include red-text;
+    margin-top: 22px;
+  }
+}
+</style>

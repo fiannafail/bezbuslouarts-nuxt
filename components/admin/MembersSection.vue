@@ -22,12 +22,14 @@
               v-subheader Имя и фамилия
             v-flex(xs8)
               v-text-field(v-model="member.name" label="Имя и фамилия" hide-details required)
+              v-text-field(v-model="member.nameEN" label="Имя и фамилия (EN)" hide-details required)
         v-flex(xs6)
           v-layout
             v-flex(xs4)
               v-subheader Позиция
             v-flex(xs8)
               v-text-field(v-model="member.position" label="Позиция" hide-details required)
+              v-text-field(v-model="member.positionEN" label="Позиция (EN)" hide-details required)
       v-layout
         v-flex(xs3)
           v-subheader Фотография
@@ -37,7 +39,8 @@
         v-flex(xs3)
           v-subheader Биография
         v-flex(xs9)
-          v-text-field(textarea v-model="member.biography" hide-details required)
+          v-text-field(textarea v-model="member.biography" hide-details required label="RU")
+          v-text-field(textarea v-model="member.biographyEN" hide-details required label="EN")
       v-btn(@click="addMember" color="primary") Добавить
       div
         v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="memberAdding")
@@ -52,8 +55,11 @@ export default {
     removedMembers: [],
     member: {
       name: null,
+      nameEN: null,
       position: null,
+      positionEN: null,
       biography: null,
+      biographyEN: null,
       photo: null
     }
   }),

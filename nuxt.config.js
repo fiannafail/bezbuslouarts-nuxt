@@ -24,6 +24,7 @@ module.exports = {
     '~/plugins/functions.js',
     //  { src: '~/plugins/localStorage.js', ssr: false },
     { src: '~/plugins/firebase-client-init.js', ssr: false },
+    { src: '~/plugins/multilanguage.js', ssr: false },
     { src: '~/plugins/auth-cookie.js', ssr: false }
   ],
   serverMiddleware: [

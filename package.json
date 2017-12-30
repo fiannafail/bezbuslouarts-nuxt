@@ -33,6 +33,7 @@
     "vue-aplayer": "^0.1.1",
     "vue-audio": "0.0.10",
     "vue-carousel": "^0.6.5",
+    "vue-multilanguage": "^3.0.5",
     "vue-no-ssr": "^0.2.2",
     "vue-plyr": "0.0.2",
     "vue-scrollto": "^2.8.0",

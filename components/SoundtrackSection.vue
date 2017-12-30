@@ -2,16 +2,16 @@
 section(class="soundtrack-section")
   div(class="wrapper")
     div(class="description")
-      h2(class="section-headline") Разработка музыки и саундтреков
-      p(class="red-text") {{ sectionsMeta.Soundtrack.subtitle }}
-      p Текст про то, как можно заказать разработку музыки и саундтреков от такого талантилвого музыканта, как Дмитрий. Ключевые моменты какие-то. Звуковая дорожка — музыкальное сопровождение какого-либо материала: фильма, мюзикла, аниме, телепередачи, компьютерной игры, книги и так далее, а также музыкальный альбом содержащий композиции из данного произведения.
+      h2(class="section-headline") {{ language === 'ru' ? sectionsMeta.Soundtrack.title : sectionsMeta.Soundtrack.titleEN }}
+      p(class="red-text") {{ language === 'ru' ? sectionsMeta.Soundtrack.subtitle : sectionsMeta.Soundtrack.subtitleEN }}
+      p {{ language === 'ru' ? sectionsMeta.Soundtrack.text : sectionsMeta.Soundtrack.textEN }}
     div(class="soundtracks")
       div
         div(v-for="(item, index) in Soundtracks" class="audio-controls")
           div
             div(class="track-meta")
-              span {{ item.Singer }}
-              span {{ item.Title }}
+              span {{ language === 'ru' ? item.Singer : item.SingerEN }}
+              span {{ language === 'ru' ? item.Title : item.TitleEN}}
           no-ssr
             vue-audio(:file="item.url")
 </template>

@@ -26,12 +26,14 @@ section(class="media-section elevation-4")
                     v-subheader Название
                   v-flex(xs8)
                     v-text-field(label="Название материала" :placeholder="item.title" v-model="issue.title" hide-details)
+                    v-text-field(label="Название материала (EN)" :placeholder="item.titleEN" v-model="issue.titleEN" hide-details)
               v-flex(xs6)
                 v-layout(row)
                   v-flex(xs4)
                     v-subheader Издание
                   v-flex(xs8)
                     v-text-field(label="Издание" :placeholder="item.magazine" v-model="issue.magazine" hide-details)
+                    v-text-field(label="Издание (EN)" :placeholder="item.magazineEN" v-model="issue.magazineEN" hide-details)
             v-layout(row)
               v-flex(xs6)
                 v-layout(row)
@@ -59,12 +61,14 @@ section(class="media-section elevation-4")
             v-subheader Название
           v-flex(xs8)
             v-text-field(label="Название материала" v-model="issue.title" hide-details)
+            v-text-field(label="Название материала (EN)" v-model="issue.titleEN" hide-details)
       v-flex(xs6)
         v-layout(row)
           v-flex(xs4)
             v-subheader Издание
           v-flex(xs8)
             v-text-field(label="Издание" v-model="issue.magazine" hide-details)
+            v-text-field(label="Издание (EN)" v-model="issue.magazineEN" hide-details)
     v-layout(row)
       v-flex(xs6)
         v-layout(row)
@@ -91,9 +95,11 @@ export default {
   data: () => ({
     issue: {
       title: null,
+      titleEN: null,
       url: null,
       image: null,
-      magazine: null
+      magazine: null,
+      magazineEN: null
     },
     revomedIssues: [],
     showEditor: []

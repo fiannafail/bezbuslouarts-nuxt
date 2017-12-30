@@ -8,6 +8,7 @@ Vue.use(Vuex)
 
 const store = () => new Vuex.Store({
   state: {
+    language: 'ru',
     user: null,
     data: '',
     all: '',
@@ -28,7 +29,7 @@ const store = () => new Vuex.Store({
     members: [],
     movie: {
       order: null,
-      title: null,
+      title: [],
       photo: null,
       descr: null,
       year: null,
@@ -67,6 +68,13 @@ const store = () => new Vuex.Store({
     nuxtServerInit ({ commit }, { req }) {
       if (req.user) {
         commit('set', { type: 'user', items: req.user })
+      }
+    },
+    changeLang ({ commit }) {
+      if (this.language === 'en') {
+        commit('set', { type: 'language', items: 'ru' })
+      } else {
+        commit('set', { type: 'language', items: 'en' })
       }
     },
     cleanMovie ({ commit }) {

@@ -1,17 +1,17 @@
 <template lang="pug">
   section(class="members-section")
     div(class="wrapper" v-bind:class="{ expanded: Members.length > 2 }")
-      p О нас
-      h2(class="section-headline") Команда проекта
+      p(v-lang.aboutUs)
+      h2(class="section-headline" v-lang.team)
       div(class="member-block")
         div(v-for="(item, index) in Members" :key="index" v-bind:class="{ extended: item.biography }")
           div(class="metabox")
             img(:src="item.photo")
             div
-              p(class="red-text") {{ item.name }}
-              p {{ item.position }}
+              p(class="red-text") {{ language === 'ru' ? item.name : item.nameEN }}
+              p {{ language === 'ru' ? item.position : item.nameEN }}
           div(class="bio" v-if="item.biography")
-            p {{ item.biography }}
+            p {{ language === 'ru' ? item.biography : item.biographyEN }}
 </template>
 <script>
 export default {

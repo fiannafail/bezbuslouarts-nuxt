@@ -7,7 +7,8 @@ section(class="movies-section elevation-4")
         v-flex(xs3)
           v-subheader Название
         v-flex(xs9)
-         v-text-field(v-model="movie.title" required hide-details label="Название фильма")
+          v-text-field(v-model="movie.title" required hide-details :label="`Название фильма (ru)`")
+          v-text-field(v-model="movie.titleEN" required hide-details :label="`Название фильма (en)`")
       v-layout(row)
         v-flex(xs6)
           v-layout(row)
@@ -35,7 +36,8 @@ section(class="movies-section elevation-4")
         v-flex(xs3)
           v-subheader Описание
         v-flex(xs9)
-          v-text-field(v-model="movie.descr" required name="input-5" textarea)
+          v-text-field(v-model="movie.descr" required name="input-5" textarea label="RU")
+          v-text-field(v-model="movie.descrEN" required name="input-7" textarea label="EN")
       div(class="screens")
         v-layout(row)
           v-flex(xs6)
@@ -53,9 +55,11 @@ section(class="movies-section elevation-4")
           v-flex(xs6)
             v-text-field(v-model="movie.thumb6" label="Скриншот 6" box hide-details required)
       v-btn(@click.prevent="addMovie" color="primary" type="submit" v-if="!movie.order") Добавить
-      div(v-else)
+      div(v-else class="edit-buttons")
         v-btn(@click.prevent="cancel" dark color="red accent-4") Отменить
         v-btn(@click.prevent="saveMovie" color="primary" type="submit") Сохранить
+        transition(name="fade")
+          v-icon(v-show="showDone" flat color="success" large class="mx-3" class="done") done
       div
         v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
 </template>
@@ -67,13 +71,23 @@ import { mapState } from 'vuex'
 import { database } from '~/plugins/firebase-client-init.js'
 export default {
   data: () => ({
+    langs: ['ru', 'en'],
+    showInput: [],
+    showDone: false
   }),
   methods: {
+    click (item) {
+      console.log(item)
+    },
     cancel () {
       this.$store.dispatch('cleanMovie')
     },
     async saveMovie () {
-      await database.ref('Movies/' + 'this.movie.key').update(this.movie)
+      await database.ref('Movies/' + this.movie.key).update(this.movie)
+      this.showDone = true
+      setTimeout(() => {
+        this.showDone = false
+      }, 2500)
     },
     async addMovie () {
       this.$store.commit('set', { type: 'movieAdding', items: true })
@@ -91,6 +105,19 @@ export default {
 <style lang="scss" scoped>
 .movies-section {
   background-color: #f5f5f5;
+  .edit-buttons {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .done {
+    position: absolute;
+    right: 20%;
+  }
+  .fade-leave-active {
+    transition: opacity 3s;
+  }
   button[type="submit"] {
     margin: 32px 0;
   }

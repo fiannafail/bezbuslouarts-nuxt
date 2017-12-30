@@ -45,6 +45,7 @@ section(class="partners-section elevation-4")
             v-subheader Партнер
           v-flex(xs9)
             v-text-field(v-model="partner.title" label="Название партнера" hide-details)
+            v-text-field(v-model="partner.titleEN" label="Название партнера (EN)" hide-details)
     v-btn(color="primary" @click="addPartner") Добавить
     div
       v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="partnerAdding")
@@ -57,14 +58,17 @@ section(class="partners-section elevation-4")
             v-subheader Заголовок блока
           v-flex(xs8)
             v-text-field(v-model="SectionsMeta.Partners.title" hide-details label="Заголовок секции")
+            v-text-field(v-model="SectionsMeta.Partners.titleEN" hide-details label="Заголовок секции (EN)")
         v-layout
           v-flex(xs4)
             v-subheader Подзаголовок
           v-flex(xs8)
             v-text-field(v-model="SectionsMeta.Partners.subheader" hide-details label="Подзаголовок секции")
+            v-text-field(v-model="SectionsMeta.Partners.subheaderEN" hide-details label="Подзаголовок секции (EN)")
         v-layout
           v-flex(xs12)
             v-text-field(textarea v-model="SectionsMeta.Partners.text" label="Основной текст")
+            v-text-field(textarea v-model="SectionsMeta.Partners.textEN" label="Основной текст (EN)")
         v-btn(color="primary" @click="editSectionMeta('Partners')") Сохранить изменения
 </template>
 <script>
@@ -119,13 +123,17 @@ export default {
     partnersImage: null,
     partner: {
       title: null,
+      titleEN: null,
       url: null
     },
     SectionsMeta: {
       Partners: {
         title: null,
         subheader: null,
-        text: null
+        text: null,
+        titleEN: null,
+        subheaderEN: null,
+        textEN: null
       }
     }
   }),

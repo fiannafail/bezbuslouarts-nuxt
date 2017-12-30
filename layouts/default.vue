@@ -15,8 +15,10 @@ export default {
   }
 }
 </script>
-
 <style lang="scss">
+.icon.icon--large {
+  font-family: 'Material Icons'
+}
 .input-group--select {
   .input-group__selections {
       overflow: inherit !important;

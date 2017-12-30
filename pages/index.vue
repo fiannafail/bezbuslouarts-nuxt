@@ -5,7 +5,7 @@
       section(class="preview-photos")
         div(v-for="(item, index) in Movies" class="photo")
           div(class="photo-meta")
-            h2 {{ item.title }}
+            h2 {{ language === 'ru' ? item.title : item.titleEN }}
           img(:src="item.image")
       section(class="movies-section" id="movies")
         v-tabs(v-model="active" centered)
@@ -21,20 +21,20 @@
                 div(class="movie-meta")
                   div(class="movie-info")
                     p {{ tab.year }}
-                    h2 {{ tab.title }}
+                    h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
                   div(class="movie-wrap")
                     div(class="movie-expand" v-if="showMovieTrailer === false && showMovieInfo === false")
-                      p(@click="showMovieInfo = true" class="arrow-right") О фильме
-                      p(@click="showMovieTrailer = true" class="arrow-right") Смотреть трейлер
+                      p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
+                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
                 transition(name="fadeIn")
                   div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
                 transition(name="fadeIn")
                   div(class="movie-expanded-info" v-if="showMovieInfo === true")
                     div(class="movie-info")
-                      h2 {{ tab.title }}
-                      p {{ tab.year }}
-                      p {{ tab.descr }}
+                      h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
+                      p {{ language === 'ru' ? tab.year : tab.yearEN }}
+                      p {{ language === 'ru' ? tab.descr : tab.descrEN }}
                     div(class="movie-shots")
                       img(:src="tab.thumb1")
                       img(:src="tab.thumb2")
@@ -43,36 +43,36 @@
                       img(:src="tab.thumb5")
                       img(:src="tab.thumb6")
             div(class="movie-footer")
-              p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-if="showMovieInfo === true || showMovieTrailer === true" class="backlink arrow-left") Назад к проектам
-              p(v-if="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false") О фильме
+              p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-if="showMovieInfo === true || showMovieTrailer === true" class="backlink arrow-left" v-lang.toProjects)
+              p(v-if="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false" v-lang.aboutMovie)
             v-tabs-bar(dark v-if="showMovieInfo !== true && showMovieTrailer !== true")
               v-tabs-item(
                   v-for="(tab, index) in Movies"
                   :key="index"
                   :href="'#' + tab.key")
       section(class="partnership-section")
-        p Сотрудничество
+        p(v-lang.cooperation)
         div(class="wrapper")
           div(class="description")
-            h2(class="section-headline") {{ sectionsMeta.Partners.title }}
-            p(class="red-text") {{ sectionsMeta.Partners.subheader }}
-            p {{ sectionsMeta.Partners.text }}
+            h2(class="section-headline") {{ language === 'ru' ? sectionsMeta.Partners.title : sectionsMeta.Partners.titleEN }}
+            p(class="red-text") {{ language === 'ru' ? sectionsMeta.Partners.subheader : sectionsMeta.Partners.subheaderEN}}
+            p {{ language === 'ru' ? sectionsMeta.Partners.text : sectionsMeta.Partners.textEN}}
           div(class="partners-slider")
             v-carousel(delimiter-icon="remove" hide-controls)
               v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
       soundtrack-section
       members-section(:Members="members")
       section(class="media-section")
-        p СМИ
-        h1(class="section-headline") О нас пишут
+        p(v-lang.massMedia)
+        h1(class="section-headline" v-lang.written)
         no-ssr
           carousel(perPage="4")
             slide(v-for="(item, index) in Issues" :key="index")
               div
                 img(:src="item.image")
                 div(class="meta-info")
-                  h3 {{ item.title }}
-                  p {{ item.magazine }}
+                  h3 {{ language === 'ru' ? item.title : item.titleEN }}
+                  p {{ language === 'ru' ? item.magazine : item.magazineEN }}
 </template>
 
 <script>
@@ -515,10 +515,14 @@ export default {
     width: 100% !important;
   }
   .title-block {
-    width: 80%;
+    width: 80% !important;
     p {
-      font-style: 24px;
+      font-size: 32px !important;
     }
+  }
+  .movie-meta {
+    width: 100%;
+    padding: 25px;
   }
 }
 </style>

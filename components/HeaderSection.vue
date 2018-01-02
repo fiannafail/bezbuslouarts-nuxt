@@ -1,5 +1,6 @@
 <template lang="pug">
   div(id="HeaderSection")
+    div(class="logo")
     div(class="wrapper")
       div(class="title-block")
         p(v-lang.title) Мы создаем независимое
@@ -21,8 +22,6 @@
       p(class="arrow-right" v-lang.contacts)
 </template>
 <script>
-import { mapState } from 'vuex'
-
 export default {
   data: () => ({
   }),
@@ -31,10 +30,7 @@ export default {
       this.$store.dispatch('changeLang')
       this.language = this.language === 'en' ? this.language = 'ru' : this.language = 'en'
     }
-  },
-  computed: mapState({
-    language: 'language'
-  })
+  }
 }
 </script>
 <style lang="scss" scoped>
@@ -65,6 +61,14 @@ export default {
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.9);
   position: relative;
+  .logo {
+    position: absolute;
+    margin: 0 auto;
+    width: 300px;
+    height: 74px;
+    top: 25px;
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/logo.png?alt=media&token=754cd17d-f10d-48ba-9927-45bcf8631637)
+  }
 }
 .section-footer {
   position: absolute;

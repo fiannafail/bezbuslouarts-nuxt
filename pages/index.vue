@@ -58,9 +58,15 @@
             h2(class="section-headline") {{ language === 'ru' ? sectionsMeta.Partners.title : sectionsMeta.Partners.titleEN }}
             p(class="red-text") {{ language === 'ru' ? sectionsMeta.Partners.subheader : sectionsMeta.Partners.subheaderEN}}
             p {{ language === 'ru' ? sectionsMeta.Partners.text : sectionsMeta.Partners.textEN}}
+            no-ssr
+              carousel(perPage="3" class="partners")
+                slide(v-for="(item, index) in Partners" :key="index")
+                  div
+                    img(:src="item.url")
           div(class="partners-slider")
             v-carousel(delimiter-icon="remove" hide-controls)
               v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
+      scenarios-section
       soundtrack-section
       members-section(:Members="members")
       section(class="media-section")
@@ -82,6 +88,7 @@
 import MembersSection from '../components/MembersSection'
 import HeaderSection from '../components/HeaderSection'
 import SoundtrackSection from '../components/SoundtrackSection'
+import ScenariosSection from '../components/ScenariosSection'
 import ContactsSection from '../components/ContactsSection'
 import VueAudio from 'vue-audio'
 import NoSSR from 'vue-no-ssr'
@@ -97,13 +104,17 @@ export default {
       store.dispatch('getIssues'),
       store.dispatch('getSoundtracks'),
       store.dispatch('getPartnersImages'),
+      store.dispatch('getPartners'),
       store.dispatch('getTexts'),
-      store.dispatch('getMembers')
+      store.dispatch('getMembers'),
+      store.dispatch('getScenarioMovies')
     ])
   },
   data () {
     return {
       active: null,
+      mediaSlides: 4,
+      partnersSlides: 3,
       showMovieInfo: false,
       showMovieTrailer: false,
       photos: this.previewPhotos
@@ -114,6 +125,7 @@ export default {
     MembersSection,
     ContactsSection,
     SoundtrackSection,
+    ScenariosSection,
     'vue-audio': VueAudio,
     'no-ssr': NoSSR,
     Carousel,
@@ -121,6 +133,7 @@ export default {
   },
   computed: mapState({
     PartnersImages: 'partnersImages',
+    Partners: 'partners',
     player: 'player',
     Soundtracks: 'soundtracks',
     Issues: 'issues',
@@ -129,7 +142,8 @@ export default {
     all: 'all',
     previewPhotos: 'previewPhotos',
     sectionsMeta: 'sectionsMeta',
-    members: 'members'
+    members: 'members',
+    language: 'language'
   }),
   head () {
     return {
@@ -153,6 +167,9 @@ export default {
           console.log(childData)
         })
     }
+  },
+  mounted () {
+    console.log(typeof this.partnersSlides)
   }
 }
 </script>
@@ -183,13 +200,22 @@ export default {
 .partnership-section {
   background-color: #202020;
   margin-top: 150px;
-  height: 1000px;
+  padding-bottom: 125px;
+  .partners {
+    img {
+      width: 120px;
+      filter: grayscale(100%)
+    }
+    .VueCarousel-inner {
+      align-items: center;
+    }
+  }
   .partners-slider {
     padding-left: 100px;
     padding-top: 70px;
   }
   .carousel {
-    height: 300px;
+    height: 450px;
     box-shadow: none;
     .carousel__item {
       height: calc(100% - 50px);
@@ -516,12 +542,32 @@ export default {
     margin: 5px;
   }
   .members-section .member-block,
-  .soundtrack-section .wrapper {
+  .soundtrack-section .wrapper,
+  .partnership-section .wrapper,
+  .scenarios-section .wrapper,
+  .contacts-section .wrapper,
+  .contacts-wrapper {
     flex-direction: column;
     padding: 0 15px;
   }
+  .partnership-section .partners-slider {
+    padding: 10px;
+  }
+  .contacts-section .sectiom-meta {
+    position: inherit !important;
+    top: 0 !important;
+  }
   .soundtrack-section .wrapper .description,
-  .soundtrack-section .wrapper .soundtracks {
+  .soundtrack-section .wrapper .soundtracks,
+  .partnership-section .description,
+  .partnership-section .partners-slider,
+  .scenarios-section .wrapper .covers
+  .scenarios-section .wrapper .text,
+  .contacts-section .sectiom-meta,
+  .contacts-section .contacts-wrapper,
+  .contacts-section .contacts-wrapper .map,
+  .contacts-section .contacts-wrapper .contacts
+   {
     max-width: 100% !important;
     width: 100% !important;
   }

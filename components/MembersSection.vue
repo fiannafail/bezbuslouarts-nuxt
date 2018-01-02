@@ -14,8 +14,13 @@
             p {{ language === 'ru' ? item.biography : item.biographyEN }}
 </template>
 <script>
+import { mapState } from 'vuex'
+
 export default {
   data: () => ({
+  }),
+  computed: mapState({
+    language: 'language'
   }),
   props: ['Members']
 }

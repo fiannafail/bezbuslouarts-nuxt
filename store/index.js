@@ -27,6 +27,7 @@ const store = () => new Vuex.Store({
     partnersImages: [],
     sectionsMeta: [],
     members: [],
+    scenariosMovies: [],
     movie: {
       title: null,
       titleEN: null,
@@ -70,6 +71,15 @@ const store = () => new Vuex.Store({
       if (req.user) {
         commit('set', { type: 'user', items: req.user })
       }
+    },
+    async updateScenariosMovies ({ commit }) {
+      baseUpdate('child_added', 'Scenarios', (cb) => {
+        commit('set', { type: 'scenariosMovies', items: cb })
+      })
+    },
+    async getScenarioMovies ({ commit }) {
+      const data = await baseRetrieve('Scenarios')
+      commit('set', { type: 'scenariosMovies', items: data })
     },
     changeLang ({ commit }) {
       if (this.language === 'en') {

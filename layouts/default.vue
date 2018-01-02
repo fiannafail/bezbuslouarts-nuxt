@@ -195,13 +195,13 @@ export default {
 .partnership-section {
   .carousel__controls__item--active i {
     color: #e02106 !important;
-    font-size: 38px !important;
+    font-size: 44px !important;
   }
   .carousel__controls__item {
     i {
-      font-size: 32px;
+      font-size: 42px;
     }
-    margin: 10px 0 !important;
+    margin: 10px !important;
   }
   .carousel__controls {
     background: transparent;

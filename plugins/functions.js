@@ -12,14 +12,13 @@ export const baseUpdate = async (type, data, cb) => {
   await database.ref(data).on(type, snapshot => {
     if (type === 'child_added') {
       arr.push(snapshot.val())
+      cb(arr)
     } else {
       const arr = Object.values(snapshot.val())
       console.log(arr)
       cb(arr)
     }
   })
-  console.log(arr)
-  cb(arr)
 }
 export const baseRetrieve = async (type, cb) => {
   let array = []

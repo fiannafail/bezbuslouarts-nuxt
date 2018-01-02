@@ -6,6 +6,7 @@
           movies-list
           media-section
           partners-section
+          scenarios-section
         v-flex(xs6)
           movie-section
           soundtrack-section
@@ -17,6 +18,7 @@ import MembersSection from '~/components/admin/MembersSection.vue'
 import SoundtrackSection from '~/components/admin/SoundtrackSection.vue'
 import MoviesList from '~/components/admin/MoviesList.vue'
 import MediaSection from '~/components/admin/MediaSection.vue'
+import ScenariosSection from '../components/admin/ScenariosSection'
 import PartnersSection from '~/components/admin/PartnersSection.vue'
 import MovieSection from '~/components/admin/MovieSection.vue'
 import PreviewPhotos from '../components/admin/PreviewPhotos'
@@ -33,7 +35,8 @@ export default {
       store.dispatch('getPartners'),
       store.dispatch('getPartnersImages'),
       store.dispatch('getTexts'),
-      store.dispatch('getMembers')
+      store.dispatch('getMembers'),
+      store.dispatch('getScenarioMovies')
     ])
   },
   methods: {
@@ -49,6 +52,7 @@ export default {
     MediaSection,
     PartnersSection,
     MovieSection,
+    ScenariosSection,
     MembersSection,
     SoundtrackSection
   },

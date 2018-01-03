@@ -557,6 +557,20 @@ export default {
     position: inherit !important;
     top: 0 !important;
   }
+  .section-footer {
+    width: 90% !important;
+    padding: 15px;
+  }
+  .movies-section {
+    margin-top: 0;
+  }
+  .soundtrack-section {
+    height: auto;
+    padding-bottom: 15px;
+  }
+  .members-section .member-block>.extended .bio {
+    padding: 10px !important;
+  }
   .soundtrack-section .wrapper .description,
   .soundtrack-section .wrapper .soundtracks,
   .partnership-section .description,
@@ -566,7 +580,7 @@ export default {
   .contacts-section .sectiom-meta,
   .contacts-section .contacts-wrapper,
   .contacts-section .contacts-wrapper .map,
-  .contacts-section .contacts-wrapper .contacts
+  .contacts-section .contacts-wrapper .contacts,
    {
     max-width: 100% !important;
     width: 100% !important;

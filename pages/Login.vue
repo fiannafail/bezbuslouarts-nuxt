@@ -3,7 +3,7 @@
     v-content
       v-container(container-fluid grid-list-lg)
         v-layout
-          v-flex(xs4 offset-sm5)
+          v-flex(xs4 offset-sm4)
             transition(name="fade")
               v-card(class="elevation-5 pa-3" color="grey lighten-5" v-if="show === true" transition="fade-transition")
                 v-card-title(primary-title)

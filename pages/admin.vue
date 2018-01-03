@@ -22,7 +22,6 @@ import ScenariosSection from '../components/admin/ScenariosSection'
 import PartnersSection from '~/components/admin/PartnersSection.vue'
 import MovieSection from '~/components/admin/MovieSection.vue'
 import PreviewPhotos from '../components/admin/PreviewPhotos'
-import { baseElementUpdate } from '~/plugins/functions.js'
 require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
 
 export default {
@@ -38,12 +37,6 @@ export default {
       store.dispatch('getMembers'),
       store.dispatch('getScenarioMovies')
     ])
-  },
-  methods: {
-    editSectionMeta (ref) {
-      console.log(ref)
-      baseElementUpdate('Texts', ref, this.SectionsMeta.Partners)
-    }
   },
   components: {
     SignIn,

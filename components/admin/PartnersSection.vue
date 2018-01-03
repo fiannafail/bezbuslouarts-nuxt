@@ -74,7 +74,7 @@ section(class="partners-section elevation-4")
 <script>
 import { mapState } from 'vuex'
 import { database } from '~/plugins/firebase-client-init.js'
-import { addElement } from '~/plugins/functions.js'
+import { addElement, baseElementUpdate } from '~/plugins/functions.js'
 
 export default {
   methods: {
@@ -99,6 +99,10 @@ export default {
       await addElement('Partners', this.partner)
       await this.$store.dispatch('updatePartners')
       this.$store.commit('set', { type: 'partnerAdding', items: false })
+    },
+    editSectionMeta (ref) {
+      console.log(ref)
+      baseElementUpdate('Texts', ref, this.SectionsMeta.Partners)
     },
     showRemovedPartnersImages (index) {
       const array = this.removedPartnersImages

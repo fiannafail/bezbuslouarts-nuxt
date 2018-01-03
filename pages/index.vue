@@ -6,7 +6,7 @@
         div(v-for="(item, index) in Movies" class="photo")
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
-          img(:src="item.image")
+          img(:src="item.preview")
       section(class="movies-section" id="movies")
         v-tabs(v-model="active" centered)
           v-tabs-items
@@ -194,7 +194,7 @@ export default {
   background-color: #e02106;
 }
 .header-section {
-  background-image: url(https://i.pinimg.com/originals/c7/f9/72/c7f97257deca8f7f111c4b37438f5721.jpg);
+  background-image: url(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/img.png?alt=media&token=ed824509-052b-4389-9049-b5e0b721bddb);
   background-size: cover;
 }
 .partnership-section {

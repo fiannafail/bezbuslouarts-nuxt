@@ -16,7 +16,8 @@ Vue.use(MultiLanguage, {
     projects: 'Projects',
     press: 'Press',
     contacts: 'Contacts',
-    toProjects: 'Back to Projects'
+    toProjects: 'Back to Projects',
+    contactUS: 'Contact Us'
   },
   ru: {
     title: 'Мы создаем независимое <span>белорусское кино.</span>',
@@ -31,6 +32,7 @@ Vue.use(MultiLanguage, {
     projects: 'Проекты',
     press: 'Пресса',
     contacts: 'Контакты',
-    toProjects: 'Назад к проектам'
+    toProjects: 'Назад к проектам',
+    contactUS: 'Свяжитесь с нами'
   }
 })

@@ -21,6 +21,11 @@ section(class="movies-section elevation-4")
           v-text-field(v-model="movie.image" required name="input-3" label="URL ссылка на главное изображение")
       v-layout(row)
         v-flex(xs3)
+          v-subheader Превью
+        v-flex(xs9)
+          v-text-field(v-model="movie.preview" required name="input-10" label="URL ссылка на превью")
+      v-layout(row)
+        v-flex(xs3)
           v-subheader Трейлер
         v-flex(xs9)
           v-text-field(v-model="movie.trailer" required name="input-4" label="URL ссылка на трейлер")
@@ -46,7 +51,7 @@ section(class="movies-section elevation-4")
             v-text-field(v-model="movie.thumb5" label="Скриншот 5" box hide-details required)
           v-flex(xs6)
             v-text-field(v-model="movie.thumb6" label="Скриншот 6" box hide-details required)
-      v-btn(@click.prevent="addMovie" color="primary" type="submit" v-if="!movie.order") Добавить
+      v-btn(@click.prevent="addMovie" color="primary" type="submit" v-if="!movieEditing") Добавить
       div(v-else class="edit-buttons")
         v-btn(@click.prevent="cancel" dark color="red accent-4") Отменить
         v-btn(@click.prevent="saveMovie" color="primary" type="submit") Сохранить
@@ -77,6 +82,8 @@ export default {
     async saveMovie () {
       await database.ref('Movies/' + this.movie.key).update(this.movie)
       this.showDone = true
+      this.$store.commit('set', { type: 'movieEditing', items: false })
+      this.$store.dispatch('cleanMovie')
       setTimeout(() => {
         this.showDone = false
       }, 2500)
@@ -90,7 +97,8 @@ export default {
   },
   computed: mapState({
     movieAdding: 'movieAdding',
-    movie: 'movie'
+    movie: 'movie',
+    movieEditing: 'movieEditing'
   })
 }
 </script>

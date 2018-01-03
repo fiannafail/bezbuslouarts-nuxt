@@ -3,7 +3,7 @@
     h2(class="headline") Члены команды
     v-list(two-line)
       div(v-for="(item, index) in Members")
-        v-list-tile(avatar)
+        v-list-tile(avatar v-bind:class="{ isEditing: editing === index}")
           transition(name="fade")
             div(class="photo-overlay" v-if="showRemovedMembers(index) === true")
           v-list-tile-avatar
@@ -13,6 +13,7 @@
             v-list-tile-sub-title {{ item.position }}
           v-list-tile-action
             v-icon(class="icon-remove" @click="removeMember(item, index)") delete
+            v-icon(class="icon-edit" @click="editMember(item, index)") edit
         v-divider
     v-container(grid-list-md)
       v-layout(row)
@@ -41,7 +42,11 @@
         v-flex(xs9)
           v-text-field(textarea v-model="member.biography" hide-details required label="RU")
           v-text-field(textarea v-model="member.biographyEN" hide-details required label="EN")
-      v-btn(@click="addMember" color="primary") Добавить
+      div
+        v-btn(@click="addMember" color="primary" v-if="editing === null") Добавить
+        div(v-else)
+          v-btn(color="red accent-4" dark @click="cancelEditing") Отменить
+          v-btn(color="primary" @click="saveMember") Сохранить
       div
         v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="memberAdding")
 </template>
@@ -55,12 +60,14 @@ export default {
     removedMembers: [],
     member: {
       name: null,
+      editing: null,
       nameEN: null,
       position: null,
       positionEN: null,
       biography: null,
       biographyEN: null,
-      photo: null
+      photo: null,
+      showDone: false
     }
   }),
   props: ['Members'],
@@ -72,6 +79,31 @@ export default {
           return true
         }
       }
+    },
+    cancelEditing () {
+      this.member = {
+        name: null,
+        editing: null,
+        nameEN: null,
+        position: null,
+        positionEN: null,
+        biography: null,
+        biographyEN: null,
+        photo: null,
+        showDone: false
+      }
+      this.editing = null
+    },
+    editMember (item, index) {
+      this.member = item
+      this.editing = index
+    },
+    async saveMember () {
+      await database.ref('Members/' + this.member.key).update(this.member)
+      this.showDone = true
+      setTimeout(() => {
+        this.showDone = false
+      }, 2500)
     },
     removeMember (item, index) {
       this.removedMembers.push(index)
@@ -90,5 +122,8 @@ export default {
 }
 </script>
 <style scoped lang="scss">
-
+.isEditing {
+  transition: .4s;
+  background-color: #eee!important;
+}
 </style>

@@ -13,6 +13,7 @@ const store = () => new Vuex.Store({
     data: '',
     all: '',
     loading: false,
+    movieEditing: false,
     issueLoader: false,
     issueAdding: false,
     movieAdding: false,
@@ -32,6 +33,7 @@ const store = () => new Vuex.Store({
       title: null,
       titleEN: null,
       photo: null,
+      preview: null,
       descr: null,
       descrEN: null,
       year: null,
@@ -93,6 +95,7 @@ const store = () => new Vuex.Store({
         title: null,
         titleEN: null,
         photo: null,
+        preview: null,
         descr: null,
         descrEN: null,
         year: null,
@@ -105,8 +108,10 @@ const store = () => new Vuex.Store({
         thumb6: null
       }
       commit('set', { type: 'movie', items: movie })
+      commit('set', { type: 'movieEditing', items: false })
     },
     editMovie ({ commit }, payload) {
+      commit('set', { type: 'movieEditing', items: true })
       commit('set', { type: 'movie', items: payload })
     },
     async updateMembers ({ commit }) {

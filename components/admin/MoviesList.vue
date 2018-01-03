@@ -3,7 +3,7 @@ section(class="movie-list elevation-4")
   div(class="photos-block")
     h2(class="headline") Фильмы
     v-list(two-line)
-      div(v-for="(item, index) in Movies" key="index")
+      div(v-for="(item, index) in Movies" :key="index")
         v-list-tile(avatar v-bind:class="{ active: showRemovedMovies(index) === true, isEditing: editing === index && movie.title }")
           transition(name="fade")
             div(class="photo-overlay" v-if="showRemovedMovies(index) === true")
@@ -17,7 +17,7 @@ section(class="movie-list elevation-4")
                 span  &#8212; {{ item.descr }}
           v-list-tile-action
             v-flex(xs2 d-flex)
-              v-icon(@click="removeMovie(index)") delete
+              v-icon(@click="removeMovie(item, index)") delete
             v-flex(xs2 d-flex)
               v-icon(@click="editMovie(index, item)") edit
         v-divider
@@ -49,11 +49,10 @@ export default {
         }
       }
     },
-    removeMovie (index) {
+    removeMovie (item, index) {
       this.$store.commit('setLoading', true)
       this.removedMovies.push(index)
-      //  const key = this.previewPhotos[index].key
-      //  database.ref('Movies').child(key).remove()
+      database.ref('Movies').child(item.key).remove()
     },
     setNewOrder (index, el) {
       const id = this.data.indexOf(el)

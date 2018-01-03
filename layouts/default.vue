@@ -16,7 +16,7 @@ export default {
 </script>
 <style lang="scss">
 .icon.icon--large {
-  font-family: 'Material Icons'
+  font-family: 'Material Icons' !important;
 }
 .input-group--select {
   .input-group__selections {

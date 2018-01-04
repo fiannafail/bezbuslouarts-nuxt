@@ -61,9 +61,9 @@ export default {
   .member-block {
     display: flex;
     margin-top: 90px;
-    transition: .6s;
+    transition: .8s;
     & * {
-      transition: .6s;
+      transition: .8s;
     }
     & > * {
       flex: 1 1;

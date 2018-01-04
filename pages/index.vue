@@ -215,7 +215,7 @@ export default {
     padding-top: 70px;
   }
   .carousel {
-    height: 450px;
+    height: 400px;
     box-shadow: none;
     .carousel__item {
       height: calc(100% - 50px);
@@ -339,7 +339,6 @@ export default {
       margin-right: 10px;
       margin-bottom: 10px;
       width: calc(50% - 5px;);
-      height: 50%;
       &:nth-child(2n) {
         margin-right: 0;
       }

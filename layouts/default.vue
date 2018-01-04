@@ -85,7 +85,7 @@ export default {
   width: 37px;
   height: 37px;
   display: block;
-  content: "";
+  content: "" !important;
 }
 .icon-play3:before {
   background-image: url(../assets/img/play-circle.svg);

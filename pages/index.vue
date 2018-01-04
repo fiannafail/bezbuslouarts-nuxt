@@ -275,7 +275,7 @@ export default {
     width: 100%
   }
   .VueCarousel-slide {
-    max-height: 290px;
+    max-height: 350px;
     .meta-info {
       h3 {
         color: #ffffff;

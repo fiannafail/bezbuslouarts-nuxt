@@ -4,7 +4,7 @@
       p(v-lang.aboutUs)
       h2(class="section-headline" v-lang.team)
       div(class="member-block")
-        div(v-for="(item, index) in Members" :key="index" v-bind:class="{ extended: item.biography }")
+        div(v-for="(item, index) in Members" :key="index")
           div(class="metabox")
             img(:src="item.photo")
             div
@@ -18,6 +18,7 @@ import { mapState } from 'vuex'
 
 export default {
   data: () => ({
+    //  ...
   }),
   computed: mapState({
     language: 'language'
@@ -59,6 +60,10 @@ export default {
   .member-block {
     display: flex;
     margin-top: 90px;
+    transition: .6s;
+    & * {
+      transition: .6s;
+    }
     & > * {
       flex: 1 1;
       display: flex;
@@ -67,11 +72,15 @@ export default {
       font-family: Open Sans;
       font-size: 13px;
       justify-content: center;
-      &.extended {
+      .bio {
+        display: none;
+      }
+      &:hover{
         & > * {
           text-align: center;
         }
         .bio {
+          display: inherit;
           background-color: #111111;
           padding: 25px;
           line-height: 1.92;
@@ -107,6 +116,7 @@ export default {
       }
       img {
         width: 170px;
+        height: 170px;
         border-radius: 100%;
       }
     }

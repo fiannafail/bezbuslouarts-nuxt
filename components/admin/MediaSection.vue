@@ -124,7 +124,7 @@ export default {
       console.log(this.showEditor)
     },
     removeIssue (item, index) {
-      //  database.ref('Issues').child(item.key).remove()
+      database.ref('Issues').child(item.key).remove()
       this.revomedIssues.push(index)
       console.log(this.revomedIssues)
     },
@@ -150,4 +150,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+.list__tile__title {
+  max-width: 350px;
+}
 </style>

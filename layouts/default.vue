@@ -81,22 +81,18 @@ export default {
   display: none !important;
 }
 .icon-pause2::before {
-  font-family: 'Font Awesome\ 5 Free';
-  width: 36px;
-  height: 36px;
-  font-size: 36px;
+  background-image: url(../assets/img/pause-circle.svg);
+  width: 37px;
+  height: 37px;
   display: block;
-  content: "\f28b";
-  color: #495057;
+  content: "";
 }
 .icon-play3:before {
-  font-family: 'Font Awesome\ 5 Free';
-  width: 36px;
-  height: 36px;
-  font-size: 36px;
+  background-image: url(../assets/img/play-circle.svg);
+  width: 37px;
+  height: 37px;
   display: block;
-  content: "\f144" !important;
-  color: #495057;
+  content: "" !important;
 }
 .movies-section, .soundtrack-section, .partners-section  {
   .tabs:not(.tabs--grow):not(.tabs--mobile) .tabs__item {

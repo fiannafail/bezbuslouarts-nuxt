@@ -43,6 +43,7 @@ export default {
   background-color: #e02106;
 }
 .members-section {
+  height: 800px;
   padding-bottom: 50px;
   background-color: #181818;
   .wrapper {
@@ -67,27 +68,29 @@ export default {
     & > * {
       flex: 1 1;
       display: flex;
+      position: relative;
       text-align: center;
       color: white;
       font-family: Open Sans;
       font-size: 13px;
       justify-content: center;
       .bio {
-        display: none;
+        opacity: 0;
+        position: absolute;
+        left: 80px;
+        display: inherit;
+        background-color: #111111;
+        padding: 25px;
+        line-height: 1.92;
+        color: #bababa;
+        margin-left: 10px;
+        text-align: left;
+        padding-right: 25%;
       }
       &:hover{
-        & > * {
-          text-align: center;
-        }
+        justify-content: inherit;
         .bio {
-          display: inherit;
-          background-color: #111111;
-          padding: 25px;
-          line-height: 1.92;
-          color: #bababa;
-          margin-left: 10px;
-          text-align: left;
-          padding-right: 25%;
+          opacity: 1;
         }
         .metabox {
           position: relative;

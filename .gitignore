@@ -1,13 +1,24 @@
 # dependencies
 node_modules
 
+<<<<<<< HEAD
 serviceAccountKey.json
 serviceAccountKey1.json
+=======
+<<<<<<< HEAD
+serviceAccountKey.json
+>>>>>>> c15ea9890f173843084faaf029bf9b0747418af6
 plugins/firebase-client-init.js
 plugins/firebase-client-init.js
 server/api/bezbuslouarts-firebase-adminsdk-u4ya1-a576d8a80a.json
 server/bezbuslouarts-firebase-adminsdk-u4ya1-a576d8a80a.json
 
+<<<<<<< HEAD
+=======
+
+=======
+>>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
+>>>>>>> c15ea9890f173843084faaf029bf9b0747418af6
 # logs
 npm-debug.log
 

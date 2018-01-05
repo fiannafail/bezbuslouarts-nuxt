@@ -2,6 +2,7 @@
 node_modules
 
 serviceAccountKey.json
+serviceAccountKey1.json
 plugins/firebase-client-init.js
 plugins/firebase-client-init.js
 server/api/bezbuslouarts-firebase-adminsdk-u4ya1-a576d8a80a.json

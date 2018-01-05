@@ -6,6 +6,7 @@
         h2(class="section-headline" v-lang.contacts) Контакты
       div(class="contacts-wrapper")
         div(class="map")
+          img(v-lazy="map")
         div(class="contacts")
           img(src="https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/logo.png?alt=media&token=754cd17d-f10d-48ba-9927-45bcf8631637" width="180")
           p(v-lang.address) пр. Независимости, 4, 220030, г. Минск, Республика Беларусь.
@@ -15,7 +16,7 @@
 <script>
 export default {
   data: () => ({
-
+    map: 'https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/snazzy-image%20(1).png?alt=media&token=7f24f9fa-f9b6-4924-83ab-28536b3ccca7'
   })
 }
 </script>
@@ -44,6 +45,10 @@ export default {
     border: solid 1px rgba(143, 143, 143, 0.5);
     .map {
       width: 66%;
+      overflow: hidden;
+      img {
+        width: 100%;
+      }
     }
     .contacts {
       width: 33%;

@@ -6,7 +6,7 @@
       div(class="member-block")
         div(v-for="(item, index) in Members" :key="index")
           div(class="metabox")
-            img(:src="item.photo")
+            img(v-lazy="item.photo")
             div
               p(class="red-text") {{ language === 'ru' ? item.name : item.nameEN }}
               p {{ language === 'ru' ? item.position : item.nameEN }}

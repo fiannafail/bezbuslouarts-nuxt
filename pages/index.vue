@@ -6,7 +6,7 @@
         div(v-for="(item, index) in Movies" class="photo")
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
-          img(:src="item.preview")
+          img(v-lazy="item.preview")
       section(class="movies-section" id="movies")
         v-tabs(v-model="active" centered)
           v-tabs-items
@@ -34,7 +34,7 @@
                   div(class="movie-expanded-info" v-if="showMovieInfo === true")
                     div(class="movie-info")
                       h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
-                      p {{ language === 'ru' ? tab.year : tab.yearEN }}
+                      p(class="red-text") {{ language === 'ru' ? tab.year : tab.yearEN }}
                       p {{ language === 'ru' ? tab.descr : tab.descrEN }}
                     div(class="movie-shots")
                       img(:src="tab.thumb1")
@@ -59,12 +59,12 @@
             p(class="red-text") {{ language === 'ru' ? sectionsMeta.Partners.subheader : sectionsMeta.Partners.subheaderEN}}
             p {{ language === 'ru' ? sectionsMeta.Partners.text : sectionsMeta.Partners.textEN}}
             no-ssr
-              carousel(perPage="3" class="partners")
+              carousel(:perPage="3" class="partners")
                 slide(v-for="(item, index) in Partners" :key="index")
                   div
-                    img(:src="item.url")
+                    img(v-lazy="item.url")
           div(class="partners-slider")
-            v-carousel(delimiter-icon="remove" hide-controls)
+            v-carousel(delimiter-icon="remove" hide-controls :lazy="true")
               v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
       scenarios-section
       soundtrack-section
@@ -73,10 +73,10 @@
         p(v-lang.massMedia)
         h1(class="section-headline" v-lang.written)
         no-ssr
-          carousel(perPage="4")
+          carousel(:perPage="4")
             slide(v-for="(item, index) in Issues" :key="index")
               div
-                img(:src="item.image")
+                img(v-lazy="item.image")
                 div(class="meta-info")
                   h3 {{ language === 'ru' ? item.title : item.titleEN }}
                   p {{ language === 'ru' ? item.magazine : item.magazineEN }}
@@ -211,11 +211,10 @@ export default {
     }
   }
   .partners-slider {
-    padding-left: 100px;
     padding-top: 70px;
   }
   .carousel {
-    height: 400px;
+    height: 450px;
     box-shadow: none;
     .carousel__item {
       height: calc(100% - 50px);
@@ -231,6 +230,7 @@ export default {
   }
   .description {
     padding: 55px 0;
+    padding-right: 65px;
     p {
       color: #bbbbbb;
       font-family: Open Sans;
@@ -316,6 +316,7 @@ export default {
   font-family: Merriweather;
   font-size: 40px;
   color: white;
+  text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
 }
 @mixin movie-expanded-window {
   width: 1140px;
@@ -331,6 +332,28 @@ export default {
   padding: 10px;
   color: white;
   display: flex;
+  .movie-info {
+    padding: 35px;
+    .red-text {
+      @include red-text;
+      padding: 10px 0;
+    }
+    p {
+      font-family: Open Sans;
+      font-size: 14px;
+      color: #bbbbbb;
+      line-height: 1.93;
+    }
+    h2 {
+      font-family: Merriweather;
+      font-size: 40px;
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
+    }
+    p {
+
+    }
+  }
   .movie-shots {
     display: flex;
     flex-wrap: wrap;
@@ -412,6 +435,9 @@ export default {
 .movies-section {
   background-color: #181818;
   margin-top: 150px;
+  .movie-info {
+
+  }
   .tabs__items {
     display: flex;
     flex-direction: column;
@@ -531,11 +557,46 @@ export default {
   background-color: rgba(255, 255, 255, 0.1);
 }
 @media screen and (max-width: 480px) {
+  .menu ul {
+    flex-wrap: wrap;
+  }
+  .soundtrack-section, .members-section {
+    height: auto !important;
+  }
+  .soundtrack-section .wrapper .soundtracks {
+    padding: 0 !important;
+  }
+  .partnership-section .description {
+    padding-top: 0 !important;
+  }
   .media-section .VueCarousel {
     width: 100%;
   }
+  .movies-section .card--flat {
+    flex-direction: column;
+    & > * {
+      width: 100%;
+      position: relative;
+    }
+  }
   .media-section .meta-info {
     padding: 10px;
+  }
+  .contacts-section .wrapper {
+    margin-top: 25px !important;
+  }
+  .VueCarousel-slide {
+    margin-left: 10px;
+  }
+  .media-section, .soundtrack-section .wrapper {
+    padding-bottom: 50px !important;
+  }
+  .contacts-section .contacts-wrapper, .media-section {
+    height: auto !important;
+  }
+  .contacts-wrapper .map {
+    overflow: visible !important;
+    padding-top: 15px;
   }
   .media-section .VueCarousel-slide > div {
     margin: 5px;
@@ -580,9 +641,13 @@ export default {
   .contacts-section .contacts-wrapper,
   .contacts-section .contacts-wrapper .map,
   .contacts-section .contacts-wrapper .contacts,
+  .scenarios-section .wrapper > *
    {
     max-width: 100% !important;
     width: 100% !important;
+  }
+  .scenarios-section .wrapper .covers {
+    padding: 0 !important;
   }
   .title-block {
     width: 80% !important;
@@ -590,9 +655,25 @@ export default {
       font-size: 32px !important;
     }
   }
+  .movies-section .image-container {
+    height: 250px;
+  }
   .movie-meta {
     width: 100%;
-    padding: 25px;
+    text-align: center;
+    flex-direction: column;
+    .movie-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .movie-expand {
+      margin-top: 10px;
+      width: 100%;
+      &:after {
+        display: none;
+      }
+    }
   }
 }
 </style>

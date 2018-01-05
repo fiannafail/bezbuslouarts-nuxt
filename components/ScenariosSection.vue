@@ -2,6 +2,7 @@
   section(class="scenarios-section")
     div(class="wrapper")
       div(class="covers")
+        img(v-lazy="bg")
       div(class="text")
         h2(class="section-headline") {{ language === 'ru' ? sectionsMeta.Scenarios.title : sectionsMeta.Scenarios.titleEN }}
         p(class="red-text") {{ language === 'ru' ? sectionsMeta.Scenarios.subtitle : sectionsMeta.Scenarios.subtitleEN }}
@@ -15,7 +16,7 @@ import { mapState } from 'vuex'
 
 export default {
   data: () => ({
-
+    bg: 'https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/covers.png?alt=media&token=aeaee04d-9b1e-4e9d-93a2-597b18b81b06'
   }),
   computed: mapState({
     sectionsMeta: 'sectionsMeta',
@@ -64,6 +65,12 @@ export default {
     width: 1180px;
     margin: 0 auto;
     display: flex;
+    .covers {
+      padding-right: 75px;
+      img {
+          width: 100%;
+      }
+    }
     .section-text {
       font-family: Open Sans;
       font-size: 14px;
@@ -81,7 +88,7 @@ export default {
       margin-bottom: 15px;
     }
     & > * {
-      flex: 1 1;
+      width: 50%;
       margin-top: 10px;
     }
   }

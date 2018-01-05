@@ -2,7 +2,7 @@
 section(class="media-section elevation-4")
   h2(class="headline") Материалы в СМИ
   v-list(two-line)
-    div(v-for="(item, index) in Issues" key="index")
+    div(v-for="(item, index) in Issues" :key="index")
       v-list-tile(avatar)
         transition(name="fade")
           div(class="photo-overlay" v-if="showRemovedIssues(index) === true")
@@ -12,11 +12,11 @@ section(class="media-section elevation-4")
           v-list-tile-title {{ item.title }}
           v-list-tile-sub-title {{ item.magazine }}
         v-list-tile-action
-          v-icon(class="icon-edit" @click="showEditor.push(index)") mode edit
+          v-icon(class="icon-edit" @click="editingIndex = index, editingItem = item") edit
           v-icon(class="icon-remove" @click="removeIssue(item, index)") delete
       v-divider
       transition(name="fadeInDown")
-        div(class="editor" v-if="isShowEditor(index) === true")
+        div(class="editor" v-if="editingIndex === index")
           h3 Редактирование
           v-container(grid-list-sm)
             v-layout(row)
@@ -25,31 +25,31 @@ section(class="media-section elevation-4")
                   v-flex(xs4)
                     v-subheader Название
                   v-flex(xs8)
-                    v-text-field(label="Название материала" :placeholder="item.title" v-model="issue.title" hide-details)
-                    v-text-field(label="Название материала (EN)" :placeholder="item.titleEN" v-model="issue.titleEN" hide-details)
+                    v-text-field(label="Название материала" :placeholder="item.title" v-model="editingItem.title" hide-details)
+                    v-text-field(label="Название материала (EN)" :placeholder="item.titleEN" v-model="editingItem.titleEN" hide-details)
               v-flex(xs6)
                 v-layout(row)
                   v-flex(xs4)
                     v-subheader Издание
                   v-flex(xs8)
-                    v-text-field(label="Издание" :placeholder="item.magazine" v-model="issue.magazine" hide-details)
-                    v-text-field(label="Издание (EN)" :placeholder="item.magazineEN" v-model="issue.magazineEN" hide-details)
+                    v-text-field(label="Издание" :placeholder="item.magazine" v-model="editingItem.magazine" hide-details)
+                    v-text-field(label="Издание (EN)" :placeholder="item.magazineEN" v-model="editingItem.magazineEN" hide-details)
             v-layout(row)
               v-flex(xs6)
                 v-layout(row)
                   v-flex(xs5)
                     v-subheader Изображение
                   v-flex(xs7)
-                    v-text-field(label="URL изображения" :placeholder="item.image" v-model="issue.image" hide-details)
+                    v-text-field(label="URL изображения" :placeholder="item.image" v-model="editingItem.image" hide-details)
               v-flex(xs6)
                 v-layout(row)
                   v-flex(xs4)
                     v-subheader Ссылка
                   v-flex(xs8)
-                    v-text-field(label="URL-ссылка" :placeholder="item.url" v-model="issue.url" hide-details)
+                    v-text-field(label="URL-ссылка" :placeholder="item.url" v-model="editingItem.url" hide-details)
           div(class="buttons")
-            v-btn(color="red accent-4" dark small @click="closeEditor(index)") Закрыть
-            v-btn(color="primary" dark small @click="editIssue(item)") Подтвердить
+            v-btn(color="red accent-4" dark small @click="editingItem = null, editingIndex = null") Закрыть
+            v-btn(color="primary" dark small @click="editIssue(editingItem)") Подтвердить
           v-progress-circular(v-if="issueLoader" indeterminate color="primary")
           v-divider
   h2 Добавить материал
@@ -93,6 +93,8 @@ import { database } from '~/plugins/firebase-client-init.js'
 
 export default {
   data: () => ({
+    editingIndex: null,
+    editingItem: {},
     issue: {
       title: null,
       titleEN: null,
@@ -138,9 +140,8 @@ export default {
     },
     async editIssue (item) {
       this.$store.commit('issueLoading', true)
-      await database.ref().child('Issues/' + item.key).update(this.issue)
+      await database.ref().child('Issues/' + item.key).update(item)
       await this.$store.dispatch('IssueEdit')
-      this.issue = {}
     }
   },
   computed: mapState({

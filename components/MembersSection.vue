@@ -140,4 +140,35 @@ export default {
     text-align: center;
   }
 }
+@media screen and (max-width: 480px) {
+  .members-section .member-block > * {
+  justify-content: inherit;
+  margin-bottom: 15px;
+  .bio {
+    position: relative;
+    left: 0;
+    opacity: 1;
+  }
+  .metabox {
+    position: relative;
+    div {
+      p {
+        margin-top: 0;
+        margin-bottom: 8px;
+      }
+      position: absolute;
+      margin-top: 25px;
+      top: 265px;
+      width: 400px;
+      text-align: left;
+      left: 50%;
+      transform: translateX(-50%) translateY(-50%) rotate(90deg);
+    }
+  }
+    img {
+      width: 70px;
+      height: 70px;
+    }
+  }
+}
 </style>

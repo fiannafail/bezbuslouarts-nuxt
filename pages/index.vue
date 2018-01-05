@@ -557,6 +557,28 @@ export default {
   background-color: rgba(255, 255, 255, 0.1);
 }
 @media screen and (max-width: 480px) {
+  .media-section .VueCarousel-inner {
+    flex-direction: column;
+  }
+  .partnership-section .partners img {
+    width: 80%;
+  }
+  .movie-meta .movie-info h2 {
+    display: none;
+  }
+  .movie-expanded-info {
+    flex-direction: column;
+  }
+  .preview-photos {
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 25px;
+    padding-top: 15px;
+    & > * {
+      margin: 15px;
+      margin-top: 0;
+    }
+  }
   .menu ul {
     flex-wrap: wrap;
   }
@@ -585,9 +607,6 @@ export default {
   .contacts-section .wrapper {
     margin-top: 25px !important;
   }
-  .VueCarousel-slide {
-    margin-left: 10px;
-  }
   .media-section, .soundtrack-section .wrapper {
     padding-bottom: 50px !important;
   }
@@ -599,7 +618,7 @@ export default {
     padding-top: 15px;
   }
   .media-section .VueCarousel-slide > div {
-    margin: 5px;
+    margin: 15px;
   }
   .members-section .member-block,
   .soundtrack-section .wrapper,
@@ -674,6 +693,9 @@ export default {
         display: none;
       }
     }
+  }
+  .menu {
+    width: 75% !important;
   }
 }
 </style>

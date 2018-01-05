@@ -88,4 +88,19 @@ export default {
     margin-top: 22px;
   }
 }
+@media screen and (max-width: 480px) {
+    .contacts-section {
+      .red-text {
+        margin: 10px 0;
+      }
+      .wrapper {
+        margin-top: 0 !important;
+        &:before {
+        position: relative;
+        left: 50%;
+        margin-top: 0;
+      }
+    }
+  }
+}
 </style>

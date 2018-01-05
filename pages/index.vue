@@ -3,7 +3,7 @@
       section(class="header-section")
         header-section
       section(class="preview-photos")
-        div(v-for="(item, index) in Movies" class="photo")
+        div(v-for="(item, index) in Movies" class="photo" @click="active = item.key")
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
           img(v-lazy="item.preview")

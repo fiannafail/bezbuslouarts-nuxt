@@ -534,6 +534,7 @@ export default {
 }
 .photo {
   position: relative;
+  cursor: pointer;
 }
 .photo-meta {
   opacity: 0;

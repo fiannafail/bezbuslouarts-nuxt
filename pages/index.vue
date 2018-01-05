@@ -3,9 +3,10 @@
       section(class="header-section")
         header-section
       section(class="preview-photos")
-        div(v-for="(item, index) in Movies" class="photo")
+        div(v-for="(item, index) in Movies" class="photo" @click="choseTab(item.key)")
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
+          
           img(v-lazy="item.preview")
       section(class="movies-section" id="movies")
         v-tabs(v-model="active" centered)
@@ -113,6 +114,7 @@ export default {
   data () {
     return {
       active: null,
+      showenTab: null,
       mediaSlides: 4,
       partnersSlides: 3,
       showMovieInfo: false,
@@ -151,6 +153,10 @@ export default {
     }
   },
   methods: {
+    choseTab (index) {
+      this.active = index.toString()
+      console.log(this.active)
+    },
     getId (url) {
       return this.$youtube.getIdFromUrl(url)
     },

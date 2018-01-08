@@ -17,7 +17,7 @@ export default {
 <style lang="scss">
 .application {
   font-family: Open Sans;
-  font-weight: 600;
+  font-weight: 500; 
 }
 .icon.icon--large {
   font-family: 'Material Icons' !important;

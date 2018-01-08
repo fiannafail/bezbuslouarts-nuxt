@@ -80,6 +80,7 @@ export default {
       &.bold {
         font-weight: 600;
         color: #ffffff;
+        margin-bottom: 15px;
       }
     }
     .red-text {

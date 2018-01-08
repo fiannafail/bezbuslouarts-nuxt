@@ -96,7 +96,7 @@ export default {
   align-items: center;
   & p {
     font-size: 48px;
-    font-family: PT Serif Caption;
+    font-family: Merriweather;
     color: white;
     text-align: center;
     width: 100%;

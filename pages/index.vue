@@ -245,7 +245,6 @@ export default {
     p {
       color: #bbbbbb;
       font-family: 'Open Sans';
-      font-weight: 600;
       font-size: 14px;
       line-height: 1.93;
       color: #bbbbbb;

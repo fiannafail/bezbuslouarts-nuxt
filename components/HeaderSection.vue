@@ -77,9 +77,8 @@ export default {
   width: 1180px;
   p {
     font-size: 14px;
-    font-weight: 500;
+    font-weight: 600;
     color: #ffffff;
-    font-family: Roboto;
     text-transform: uppercase;
     cursor: pointer;
   }

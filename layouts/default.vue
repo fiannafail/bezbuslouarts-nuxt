@@ -15,6 +15,10 @@ export default {
 }
 </script>
 <style lang="scss">
+.application {
+  font-family: Open Sans;
+  font-weight: 600;
+}
 .icon.icon--large {
   font-family: 'Material Icons' !important;
 }
@@ -216,6 +220,10 @@ export default {
 @media screen and (max-width: 480px) {
   .wrapper {
     width: 100% !important
+  }
+  .soundtrack-section .audio-controls .vue-sound-wrapper .vue-sound__player .icon-pause2, 
+  .soundtrack-section .audio-controls .vue-sound-wrapper .vue-sound__player .icon-play3 {
+    margin-left: 0;
   }
 }
 </style>

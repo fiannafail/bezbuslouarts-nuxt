@@ -24,13 +24,13 @@
                 div(class="movie-meta")
                   div(class="movie-info")
                     p {{ tab.year }}
-                    h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
+                    h2(v-show="showMovieInfo === false") {{ language === 'ru' ? tab.title : tab.titleEN }}
                   div(class="movie-wrap")
                     div(class="movie-expand" v-show="showMovieTrailer === false && showMovieInfo === false")
                       p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
                       p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
                 transition(name="fadeIn")
-                  div(class="movie-expanded-trailer" v-show="showMovieTrailer === true")
+                  div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
                 transition(name="fadeIn")
                   div(class="movie-expanded-info" v-show="showMovieInfo === true")
@@ -48,6 +48,7 @@
             div(class="movie-footer")
               p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-show="showMovieInfo === true || showMovieTrailer === true"
                 class="backlink arrow-left" v-lang.toProjects
+                v-scroll-to="'#movies'"
                 v-bind:class="{ single: showMovieTrailer === false }"
                 )
               p(v-show="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false" v-lang.aboutMovie)
@@ -244,7 +245,7 @@ export default {
     p {
       color: #bbbbbb;
       font-family: 'Open Sans';
-      font-weight: 500;
+      font-weight: 600;
       font-size: 14px;
       line-height: 1.93;
       color: #bbbbbb;
@@ -406,7 +407,7 @@ export default {
   font-weight: 600;
   color: white;
   h2 {
-    font-family: PT Serif Caption;
+    font-family: Merriweather;
     text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
     font-size: 55px;
     line-height: 1;
@@ -534,7 +535,6 @@ export default {
 }
 .preview-photos {
   display: flex;
-  height: 250px;
   & > div {
     flex: 1 1;
     overflow: hidden;
@@ -587,10 +587,9 @@ export default {
   .preview-photos {
     flex-direction: column;
     height: auto;
-    margin-bottom: 25px;
-    padding-top: 15px;
-    & > * {
-      margin-top: 5px;
+    margin-bottom: 35px;
+    & > div {
+      margin-top: -3px
     }
   }
   .menu ul {

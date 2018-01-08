@@ -141,6 +141,9 @@ export default {
   }
 }
 @media screen and (max-width: 480px) {
+  .members-section .member-block>* .bio {
+    padding: 25px;
+  }
   .members-section .member-block > * {
   justify-content: inherit;
   margin-bottom: 15px;

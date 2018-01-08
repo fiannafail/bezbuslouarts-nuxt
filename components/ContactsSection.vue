@@ -89,6 +89,9 @@ export default {
   }
 }
 @media screen and (max-width: 480px) {
+  .contacts-section .sectiom-meta .section-headline {
+    margin-bottom: 45px;
+  }
     .contacts-section {
       .red-text {
         margin: 10px 0;

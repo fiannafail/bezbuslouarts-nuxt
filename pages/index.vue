@@ -406,7 +406,7 @@ export default {
   font-weight: 600;
   color: white;
   h2 {
-    font-family: PTSerif-Caption;
+    font-family: PT Serif Caption;
     text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
     font-size: 55px;
     line-height: 1;

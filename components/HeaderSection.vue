@@ -128,4 +128,12 @@ export default {
     color: #e02106;
   }
 }
+@media screen and (max-width: 480px) {
+  .menu {
+    width: 85%!important;
+  li {
+    padding: 0 5px;
+    }
+  }
+}
 </style>

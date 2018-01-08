@@ -97,7 +97,7 @@ export default {
         margin-top: 0 !important;
         &:before {
         position: relative;
-        left: 50%;
+        left: 0;
         margin-top: 0;
       }
     }

@@ -3,7 +3,7 @@
       section(class="header-section")
         header-section
       section(class="preview-photos")
-        div(v-for="(item, index) in Movies" class="photo" @click="active = item.key")
+        div(v-for="(item, index) in Movies" class="photo" @click="active = item.key" v-scroll-to="'#movies'")
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
           img(v-lazy="item.preview")
@@ -18,20 +18,21 @@
               v-card(flat)
                 div(class="image-container"
                     v-bind:style="{ backgroundImage: showMovieTrailer === false && showMovieInfo === false ? 'url(' + tab.image + ')' : 'none' }"
-                    v-if="")
+                    v-bind:class="{ hidden: showMovieTrailer === true || showMovieInfo === true }"
+                    )
                 div(class="movie-meta")
                   div(class="movie-info")
                     p {{ tab.year }}
                     h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
                   div(class="movie-wrap")
-                    div(class="movie-expand" v-if="showMovieTrailer === false && showMovieInfo === false")
+                    div(class="movie-expand" v-show="showMovieTrailer === false && showMovieInfo === false")
                       p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
                       p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
                 transition(name="fadeIn")
-                  div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
+                  div(class="movie-expanded-trailer" v-show="showMovieTrailer === true")
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
                 transition(name="fadeIn")
-                  div(class="movie-expanded-info" v-if="showMovieInfo === true")
+                  div(class="movie-expanded-info" v-show="showMovieInfo === true")
                     div(class="movie-info")
                       h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
                       p(class="red-text") {{ language === 'ru' ? tab.year : tab.yearEN }}
@@ -44,9 +45,12 @@
                       img(:src="tab.thumb5")
                       img(:src="tab.thumb6")
             div(class="movie-footer")
-              p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-if="showMovieInfo === true || showMovieTrailer === true" class="backlink arrow-left" v-lang.toProjects)
-              p(v-if="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false" v-lang.aboutMovie)
-            v-tabs-bar(dark v-if="showMovieInfo !== true && showMovieTrailer !== true")
+              p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-show="showMovieInfo === true || showMovieTrailer === true"
+                class="backlink arrow-left" v-lang.toProjects
+                v-bind:class="{ single: showMovieTrailer === false }"
+                )
+              p(v-show="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false" v-lang.aboutMovie)
+            v-tabs-bar(dark v-show="showMovieInfo !== true && showMovieTrailer !== true")
               v-tabs-item(
                   v-for="(tab, index) in Movies"
                   :key="index"
@@ -233,7 +237,8 @@ export default {
     padding-right: 65px;
     p {
       color: #bbbbbb;
-      font-family: Open Sans;
+      font-family: 'Open Sans';
+      font-weight: 500;
       font-size: 14px;
       line-height: 1.93;
       color: #bbbbbb;
@@ -377,6 +382,9 @@ export default {
   margin: 0 auto;
   justify-content: space-between;
   order: 99;
+  & > .single {
+    width: 100%;
+  }
 }
 .movie-wrap {
   display: flex;
@@ -565,7 +573,7 @@ export default {
     width: 80%;
   }
   .movie-meta .movie-info h2 {
-    display: none;
+    margin-bottom: 10px;
   }
   .movie-expanded-info {
     flex-direction: column;
@@ -576,8 +584,7 @@ export default {
     margin-bottom: 25px;
     padding-top: 15px;
     & > * {
-      margin: 15px;
-      margin-top: 0;
+      margin-top: 5px;
     }
   }
   .menu ul {
@@ -598,7 +605,8 @@ export default {
   .movies-section .card--flat {
     flex-direction: column;
     & > * {
-      width: 100%;
+      width: auto;
+      margin: 15px;
       position: relative;
     }
   }
@@ -697,6 +705,15 @@ export default {
   }
   .menu {
     width: 75% !important;
+  }
+  .movie-expanded-info .movie-shots>img {
+    height: 50%;
+  }
+  .hidden {
+    display: none;
+  }
+  .movie-footer {
+    width: 100%;
   }
 }
 </style>

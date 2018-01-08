@@ -3,11 +3,7 @@
       section(class="header-section")
         header-section
       section(class="preview-photos")
-<<<<<<< HEAD
         div(v-for="(item, index) in Movies" class="photo" @click="active = item.key" v-scroll-to="'#movies'")
-=======
-        div(v-for="(item, index) in Movies" class="photo" @click="choseTab(item.key)")
->>>>>>> c452aab8cc15f4d259d7bbb4c5649ed792621c62
           div(class="photo-meta")
             h2 {{ language === 'ru' ? item.title : item.titleEN }}
           

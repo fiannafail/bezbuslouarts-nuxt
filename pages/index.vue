@@ -33,18 +33,25 @@
                   div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
                 transition(name="fadeIn")
-                  div(class="movie-expanded-info" v-show="showMovieInfo === true")
+                  div(class="movie-expanded-info" v-show="showMovieInfo === true"
+                      v-bind:style="{ position: showMovieInfo === true ? 'relative' : 'absolute' }")
                     div(class="movie-info")
                       h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
                       p(class="red-text") {{ language === 'ru' ? tab.year : tab.yearEN }}
                       p {{ language === 'ru' ? tab.descr : tab.descrEN }}
                     div(class="movie-shots")
-                      img(v-lazy="tab.thumb1")
-                      img(v-lazy="tab.thumb2")
-                      img(v-lazy="tab.thumb3")
-                      img(v-lazy="tab.thumb4")
-                      img(v-lazy="tab.thumb5")
-                      img(v-lazy="tab.thumb6")
+                      div
+                        img(v-lazy="tab.thumb1")
+                      div
+                        img(v-lazy="tab.thumb2")
+                      div
+                        img(v-lazy="tab.thumb3")
+                      div
+                        img(v-lazy="tab.thumb4")
+                      div
+                        img(v-lazy="tab.thumb5")
+                      div
+                        img(v-lazy="tab.thumb6")
             div(class="movie-footer")
               p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-show="showMovieInfo === true || showMovieTrailer === true"
                 class="backlink arrow-left" v-lang.toProjects
@@ -191,6 +198,9 @@ export default {
 <style lang="scss">
 .body {
     background-color: #181818;
+}
+.hidden {
+  display: none;
 }
 a {
   text-decoration: none;
@@ -349,9 +359,9 @@ a {
   padding: 10px;
   color: white;
   display: flex;
+  position: relative;
   .movie-info {
     padding: 35px;
-    overflow-y: scroll;
     .red-text {
       @include red-text;
       padding: 10px 0;
@@ -376,7 +386,11 @@ a {
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
-    & > img {
+    max-height: 600px;
+    img {
+      width: 100%;
+    }
+    & > div {
       margin-right: 10px;
       margin-bottom: 10px;
       width: calc(50% - 5px;);
@@ -719,9 +733,6 @@ a {
   }
   .movie-expanded-info .movie-shots>img {
     height: 50%;
-  }
-  .hidden {
-    display: none;
   }
   .movie-footer {
     width: 100%;

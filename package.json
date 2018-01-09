@@ -42,6 +42,8 @@
     "vue-simple-audio": "^1.0.6",
     "vue-template-compiler": "^2.5.12",
     "vue-youtube": "^1.2.2",
+    "vue2-scrollbar": "0.0.3",
+    "vuebar": "0.0.17",
     "vuedraggable": "^2.15.0",
     "vuetify": "^0.17.4",
     "vuex-persistedstate": "^2.4.2",

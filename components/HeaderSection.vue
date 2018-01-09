@@ -3,7 +3,7 @@
     div(class="logo")
     div(class="wrapper")
       div(class="title-block")
-        p(v-lang.title) Мы создаем независимое
+        h1(v-lang.title) Мы создаем независимое
           span белорусское кино.
       div(class="menu")
         ul
@@ -94,7 +94,7 @@ export default {
   border: 1px solid rgba(143, 143, 143, 0.5);
   display: flex;
   align-items: center;
-  & p {
+  & h1 {
     font-size: 48px;
     font-family: Merriweather;
     color: white;

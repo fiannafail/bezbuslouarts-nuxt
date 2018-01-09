@@ -82,10 +82,11 @@
           carousel(:perPage="4")
             slide(v-for="(item, index) in issues" :key="index")
               div
-                img(v-lazy="item.image")
-                div(class="meta-info")
-                  h3 {{ language === 'ru' ? item.title : item.titleEN }}
-                  p {{ language === 'ru' ? item.magazine : item.magazineEN }}
+                a(:href="item.url")
+                  img(v-lazy="item.image")
+                  div(class="meta-info")
+                    h3 {{ language === 'ru' ? item.title : item.titleEN }}
+                    p {{ language === 'ru' ? item.magazine : item.magazineEN }}
       contacts-section
 </template>
 
@@ -155,7 +156,7 @@ export default {
   }),
   head () {
     return {
-      title: 'Users'
+      title: 'BezbuslouArts - Мы создаем независимое белорусское кино'
     }
   },
   methods: {
@@ -190,6 +191,9 @@ export default {
 <style lang="scss">
 .body {
     background-color: #181818;
+}
+a {
+  text-decoration: none;
 }
 @mixin red-text {
   font-family: Open Sans;
@@ -347,6 +351,7 @@ export default {
   display: flex;
   .movie-info {
     padding: 35px;
+    overflow-y: scroll;
     .red-text {
       @include red-text;
       padding: 10px 0;

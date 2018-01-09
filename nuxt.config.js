@@ -12,7 +12,7 @@ module.exports = {
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'shortcut icon', sizes: '256x256', href: 'https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/favicon.png?alt=media&token=09622d81-4585-45f7-bb08-1b33df903ca9' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto+Mono:600|Open+Sans:500,600|Merriweather:700|Material+Icons|PT+Serif+Caption&amp;subset=cyrillic' },
       { rel: 'stylesheet', href: 'https://unpkg.com/vuetify/dist/vuetify.min.css' },
       { rel: 'stylesheet', href: 'https://use.fontawesome.com/releases/v5.0.2/css/all.css' }

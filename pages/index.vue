@@ -37,7 +37,7 @@
                       v-bind:style="{ position: showMovieInfo === true ? 'relative' : 'absolute' }")
                     div(class="movie-info")
                       h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
-                      p(class="red-text") {{ language === 'ru' ? tab.year : tab.yearEN }}
+                      p(class="red-text") {{ language === 'ru' ? tab.year : tab.year }}
                       p {{ language === 'ru' ? tab.descr : tab.descrEN }}
                     div(class="movie-shots")
                       div
@@ -704,7 +704,7 @@ a {
   }
   .title-block {
     width: 80% !important;
-    p {
+    h1 {
       font-size: 32px !important;
     }
   }

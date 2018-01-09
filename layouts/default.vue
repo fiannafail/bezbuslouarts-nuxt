@@ -136,8 +136,8 @@ export default {
 }
 .nuxt-progress {
   height: 3px !important;
-  background-color: #309a6b !important;
-  box-shadow: 2px 2px 2px rgba(48, 154, 107, 0.3);
+  background-color: #e02106 !important;
+  box-shadow: 2px 2px 2px rgba(224, 33, 6, 0.5);
 }
 .container
 {

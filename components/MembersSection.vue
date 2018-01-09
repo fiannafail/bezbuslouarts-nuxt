@@ -9,7 +9,7 @@
             img(v-lazy="item.photo")
             div
               p(class="red-text") {{ language === 'ru' ? item.name : item.nameEN }}
-              p {{ language === 'ru' ? item.position : item.nameEN }}
+              p {{ language === 'ru' ? item.position : item.positionEN }}
           div(class="bio" v-if="item.biography")
             p {{ language === 'ru' ? item.biography : item.biographyEN }}
 </template>

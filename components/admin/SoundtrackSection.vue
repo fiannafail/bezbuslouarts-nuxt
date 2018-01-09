@@ -11,11 +11,10 @@
               no-ssr
               div
                 div(class="track-meta")
-                  span {{ item.Singer }}
-                  span {{ item.Title }}
+                  span {{ item.singer }}
+                  span {{ item.title }}
               vue-audio(:file="soundtrack.url")
-          v-flex(xs2 d-flex)
-            v-icon(class="icon-remove" @click="removeSoundtrack(item, index)") delete
+              v-icon(class="icon-remove" @click="removeSoundtrack(item, index)") delete
     v-container(grid-list-md)
         v-layout(row)
           v-flex(xs3)
@@ -93,7 +92,7 @@ export default {
   methods: {
     removeSoundtrack (item, index) {
       this.revomedSoundtracks.push(index)
-      //  database.ref('Soundtracks').child(item.key).remove()
+      database.ref('Soundtracks').child(item.key).remove()
     },
     showRemovedSoundtracks (index) {
       const array = this.revomedSoundtracks

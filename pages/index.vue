@@ -28,14 +28,16 @@
                   div(class="movie-wrap")
                     div(class="movie-expand" v-show="showMovieTrailer === false && showMovieInfo === false")
                       p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
-                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer
-                      v-bind:style="{ position: showMovieTrailer === true ? 'relative' : 'absolute' }")
+                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
                 transition(name="fadeIn")
-                  div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
+                  div(class="movie-expanded-trailer" v-if="showMovieTrailer === true"
+                  v-bind:style="{ position: showMovieTrailer === true ? 'relative' : 'absolute' }"
+                  )
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
                 transition(name="fadeIn")
                   div(class="movie-expanded-info" v-show="showMovieInfo === true"
-                      v-bind:style="{ position: showMovieInfo === true ? 'relative' : 'absolute' }")
+                      v-bind:style="{ position: showMovieInfo === true ? 'relative' : 'absolute' }"
+                      )
                     div(class="movie-info")
                       h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
                       p(class="red-text") {{ language === 'ru' ? tab.year : tab.year }}

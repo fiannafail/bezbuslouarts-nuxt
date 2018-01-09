@@ -28,7 +28,8 @@
                   div(class="movie-wrap")
                     div(class="movie-expand" v-show="showMovieTrailer === false && showMovieInfo === false")
                       p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
-                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
+                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer
+                      v-bind:style="{ position: showMovieTrailer === true ? 'relative' : 'absolute' }")
                 transition(name="fadeIn")
                   div(class="movie-expanded-trailer" v-if="showMovieTrailer === true")
                     youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")

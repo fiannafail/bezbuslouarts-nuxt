@@ -11,7 +11,7 @@ section(class="soundtrack-section")
           div
             div(class="track-meta")
               span {{ language === 'ru' ? item.singer : item.singerEN }}
-              span {{ language === 'ru' ? item.ttitle : item.titleEN}}
+              span {{ language === 'ru' ? item.title : item.titleEN}}
           no-ssr
             vue-audio(:file="item.url")
 </template>

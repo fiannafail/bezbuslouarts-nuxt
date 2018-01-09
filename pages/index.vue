@@ -39,12 +39,12 @@
                       p(class="red-text") {{ language === 'ru' ? tab.year : tab.yearEN }}
                       p {{ language === 'ru' ? tab.descr : tab.descrEN }}
                     div(class="movie-shots")
-                      img(:src="tab.thumb1")
-                      img(:src="tab.thumb2")
-                      img(:src="tab.thumb3")
-                      img(:src="tab.thumb4")
-                      img(:src="tab.thumb5")
-                      img(:src="tab.thumb6")
+                      img(v-lazy="tab.thumb1")
+                      img(v-lazy="tab.thumb2")
+                      img(v-lazy="tab.thumb3")
+                      img(v-lazy="tab.thumb4")
+                      img(v-lazy="tab.thumb5")
+                      img(v-lazy="tab.thumb6")
             div(class="movie-footer")
               p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-show="showMovieInfo === true || showMovieTrailer === true"
                 class="backlink arrow-left" v-lang.toProjects

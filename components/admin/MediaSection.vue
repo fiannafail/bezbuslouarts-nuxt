@@ -128,7 +128,7 @@ export default {
     removeIssue (item, index) {
       database.ref('Issues').child(item.key).remove()
       this.revomedIssues.push(index)
-      console.log(this.revomedIssues)
+      console.log(item.key)
     },
     showRemovedIssues (index) {
       const array = this.revomedIssues
@@ -139,6 +139,7 @@ export default {
       }
     },
     async editIssue (item) {
+      console.log(item)
       this.$store.commit('issueLoading', true)
       await database.ref().child('Issues/' + item.key).update(item)
       await this.$store.dispatch('IssueEdit')
@@ -146,7 +147,8 @@ export default {
   },
   computed: mapState({
     Issues: 'issues',
-    issueAdding: 'issueAdding'
+    issueAdding: 'issueAdding',
+    issueLoader: 'issueLoader'
   })
 }
 </script>

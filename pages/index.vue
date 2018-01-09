@@ -143,7 +143,7 @@ export default {
     Partners: 'partners',
     player: 'player',
     Soundtracks: 'soundtracks',
-    Issues: 'issues',
+    Issues: state => state.issues.reverse(),
     Movies: 'movies',
     data: 'data',
     all: 'all',

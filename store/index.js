@@ -182,7 +182,7 @@ const store = () => new Vuex.Store({
     async getIssues ({ commit }) {
       let array = []
       try {
-        const data = await database.ref('Issues').once('value')
+        const data = await database.ref('Issues').orderByKey().once('value')
         data.forEach((child) => {
           const childData = child.val()
           array.push(childData)

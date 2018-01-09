@@ -10,8 +10,8 @@ section(class="soundtrack-section")
         div(v-for="(item, index) in Soundtracks" class="audio-controls")
           div
             div(class="track-meta")
-              span {{ language === 'ru' ? item.Singer : item.SingerEN }}
-              span {{ language === 'ru' ? item.Title : item.TitleEN}}
+              span {{ language === 'ru' ? item.singer : item.singerEN }}
+              span {{ language === 'ru' ? item.ttitle : item.titleEN}}
           no-ssr
             vue-audio(:file="item.url")
 </template>

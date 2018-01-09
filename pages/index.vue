@@ -80,7 +80,7 @@
         h1(class="section-headline" v-lang.written)
         no-ssr
           carousel(:perPage="4")
-            slide(v-for="(item, index) in Issues" :key="index")
+            slide(v-for="(item, index) in issues" :key="index")
               div
                 img(v-lazy="item.image")
                 div(class="meta-info")
@@ -118,6 +118,7 @@ export default {
   },
   data () {
     return {
+      issues: [],
       active: null,
       showenTab: null,
       mediaSlides: 4,
@@ -143,8 +144,8 @@ export default {
     Partners: 'partners',
     player: 'player',
     Soundtracks: 'soundtracks',
-    Issues: state => state.issues.reverse(),
     Movies: 'movies',
+    Issues: 'issues',
     data: 'data',
     all: 'all',
     previewPhotos: 'previewPhotos',
@@ -181,6 +182,7 @@ export default {
   },
   mounted () {
     console.log(typeof this.partnersSlides)
+    this.issues = this.Issues.reverse()
   }
 }
 </script>
@@ -561,7 +563,7 @@ export default {
   color: white;
   & h2 {
     font-size: 36px;
-    font-family: PT Serif Caption;
+    font-family: Merriweather;
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
   }
 }

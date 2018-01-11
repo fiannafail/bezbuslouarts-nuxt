@@ -46,3 +46,31 @@ export const addElement = async (base, state) => {
   updates[newKey] = state
   await database.ref().child(base).update(updates)
 }
+
+export class Section {
+  constructor (name, item, removed, array) {
+    this.name = name
+    this.array = array
+    this.item = item
+    this.removed = removed
+  }
+  async add () {
+    const newKey = database.ref().child(this.name).push().key
+    const updates = {}
+    this.item.key = newKey
+    updates[newKey] = this.item
+    await database.ref().child(this.name).update(updates)
+  }
+  async remove (item, index) {
+    this.removed.push(index)
+    //  database.ref('Soundtracks').child(item.key).remove()
+    return this.removed
+  }
+  showRemovedItems (index) {
+    for (let i = 0; i < this.removed.length; i++) {
+      if (this.removed[i] === index) {
+        return true
+      }
+    }
+  }
+}

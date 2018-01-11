@@ -3,18 +3,19 @@
     h2(class="headline") Саундтреки
     div
       v-container(grid-list-md)
-        v-layout
+        v-layout(v-for="(item, index) in Soundtracks" :key="index")
           v-flex(xs10)
             transition(name="fade")
               div(class="photo-overlay" v-if="showRemovedSoundtracks(index) === true")
-            div(v-for="(item, index) in Soundtracks" class="audio-controls")
+            div( class="audio-controls")
               no-ssr
               div
                 div(class="track-meta")
                   span {{ item.singer }}
                   span {{ item.title }}
               vue-audio(:file="soundtrack.url")
-              v-icon(class="icon-remove" @click="removeSoundtrack(item, index)") delete
+          v-flex(xs2 d-flex)
+            v-icon(class="icon-remove" @click="removeSoundtrack(item, index)") delete
     v-container(grid-list-md)
         v-layout(row)
           v-flex(xs3)
@@ -62,8 +63,8 @@
 import { mapState } from 'vuex'
 import NoSSR from 'vue-no-ssr'
 import VueAudio from 'vue-audio'
-import { baseElementUpdate } from '~/plugins/functions.js'
-import { database } from '~/plugins/firebase-client-init.js'
+import { baseElementUpdate, Section } from '~/plugins/functions.js'
+//  import { database } from '~/plugins/firebase-client-init.js'
 
 export default {
   data: () => ({
@@ -91,35 +92,29 @@ export default {
   },
   methods: {
     removeSoundtrack (item, index) {
-      this.revomedSoundtracks.push(index)
-      database.ref('Soundtracks').child(item.key).remove()
+      const removed = this.soundtracks.remove(item, index)
+      this.revomedSoundtracks = removed
     },
     showRemovedSoundtracks (index) {
-      const array = this.revomedSoundtracks
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.soundtracks.showRemovedItems(index)
     },
     editSectionMeta () {
       baseElementUpdate('Texts', 'Soundtrack', this.SectionsMeta.Soundtrack)
     },
     async addSoundtrack () {
-      //  this.$store.commit('set', { type: 'movieAdding', items: true })
-      const newKey = database.ref().child('Soundtracks').push().key
-      const updates = {}
-      this.soundtrack.key = newKey
-      updates[newKey] = this.soundtrack
-      await database.ref().child('Soundtracks').update(updates)
-      //  await this.$store.dispatch('updatePhotos')
-      //  this.$store.commit('set', { type: 'movieAdding', items: false })
+      this.soundtracks.add()
     }
   },
-  computed: mapState({
-    Soundtracks: 'soundtracks',
-    sectionsMeta: 'sectionsMeta'
-  }),
+  computed: {
+    soundtracks () {
+      const soundtracks = new Section('Soundtracks', this.soundtrack, this.revomedSoundtracks)
+      return soundtracks
+    },
+    ...mapState({
+      Soundtracks: 'soundtracks',
+      sectionsMeta: 'sectionsMeta'
+    })
+  },
   components: {
     'no-ssr': NoSSR,
     'vue-audio': VueAudio

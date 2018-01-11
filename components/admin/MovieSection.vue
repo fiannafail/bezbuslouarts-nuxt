@@ -61,9 +61,8 @@ section(class="movies-section elevation-4")
         v-progress-circular(indeterminate v-bind:size="50" color="primary" v-if="movieAdding")
 </template>
 <script>
-import { addElement } from '~/plugins/functions.js'
 import { mapState } from 'vuex'
-//  import { database } from '~/plugins/firebase-client-init.js'
+import { Section } from '~/plugins/functions.js'
 //  import axios from '~/plugins/axios.js'
 import { database } from '~/plugins/firebase-client-init.js'
 export default {
@@ -90,16 +89,22 @@ export default {
     },
     async addMovie () {
       this.$store.commit('set', { type: 'movieAdding', items: true })
-      await addElement('Movies', this.movie)
+      await this.movies.add()
       await this.$store.dispatch('updatePhotos')
       this.$store.commit('set', { type: 'movieAdding', items: false })
     }
   },
-  computed: mapState({
-    movieAdding: 'movieAdding',
-    movie: 'movie',
-    movieEditing: 'movieEditing'
-  })
+  computed: {
+    movies () {
+      const movies = new Section('Movies', this.movie)
+      return movies
+    },
+    ...mapState({
+      movieAdding: 'movieAdding',
+      movie: 'movie',
+      movieEditing: 'movieEditing'
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>

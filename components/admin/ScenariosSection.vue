@@ -44,7 +44,7 @@
 </template>
 <script>
 import { mapState } from 'vuex'
-import { baseElementUpdate, addElement } from '~/plugins/functions.js'
+import { baseElementUpdate, addElement, Section } from '~/plugins/functions.js'
 //  import { database } from '~/plugins/firebase-client-init.js'
 
 export default {
@@ -67,20 +67,15 @@ export default {
   }),
   methods: {
     async removeScenario (item, index) {
-      //  await database.ref('Scenarios').child(item.key).remove()
-      this.revomedScenarios.push(index)
+      const removed = this.scenarios.remove(item, index)
+      this.revomedSoundtracks = removed
     },
     async addScenario () {
       await addElement('Scenarios', this.movie)
       this.$store.dispatch('updateScenariosMovies')
     },
     showRemovedScenarios (index) {
-      const array = this.revomedScenarios
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.scenarios.showRemovedItems(index)
     },
     editSectionMeta (type) {
       baseElementUpdate('Texts', type, this.SectionsMeta.Scenarios)
@@ -89,10 +84,16 @@ export default {
   created () {
     this.SectionsMeta = this.sectionsMeta
   },
-  computed: mapState({
-    sectionsMeta: 'sectionsMeta',
-    scenariosMovies: 'scenariosMovies'
-  })
+  computed: {
+    scenarios () {
+      const scenarios = new Section('Scenarios', this.movie, this.revomedScenarios)
+      return scenarios
+    },
+    ...mapState({
+      sectionsMeta: 'sectionsMeta',
+      scenariosMovies: 'scenariosMovies'
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>

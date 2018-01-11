@@ -85,18 +85,7 @@
       scenarios-section
       soundtrack-section
       members-section(:Members="members")
-      section(class="media-section")
-        p(v-lang.massMedia)
-        h1(class="section-headline" v-lang.written)
-        no-ssr
-          carousel(:perPage="4")
-            slide(v-for="(item, index) in issues" :key="index")
-              div
-                a(:href="item.url")
-                  img(v-lazy="item.image")
-                  div(class="meta-info")
-                    h3 {{ language === 'ru' ? item.title : item.titleEN }}
-                    p {{ language === 'ru' ? item.magazine : item.magazineEN }}
+      media-section
       contacts-section
 </template>
 
@@ -107,6 +96,7 @@ import HeaderSection from '../components/HeaderSection'
 import SoundtrackSection from '../components/SoundtrackSection'
 import ScenariosSection from '../components/ScenariosSection'
 import ContactsSection from '../components/ContactsSection'
+import MediaSection from '../components/MediaSection'
 import VueAudio from 'vue-audio'
 import NoSSR from 'vue-no-ssr'
 import { Carousel, Slide } from 'vue-carousel'
@@ -143,6 +133,7 @@ export default {
     HeaderSection,
     MembersSection,
     ContactsSection,
+    MediaSection,
     SoundtrackSection,
     ScenariosSection,
     'vue-audio': VueAudio,
@@ -192,7 +183,6 @@ export default {
     }
   },
   mounted () {
-    console.log(typeof this.partnersSlides)
     this.issues = this.Issues.reverse()
   }
 }

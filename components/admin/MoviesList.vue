@@ -24,7 +24,7 @@ section(class="movie-list elevation-4")
 </template>
 <script>
 import { mapState } from 'vuex'
-import { database } from '~/plugins/firebase-client-init.js'
+import { Section } from '~/plugins/functions.js'
 
 export default {
   data: () => ({
@@ -42,46 +42,23 @@ export default {
       this.editing = index
     },
     showRemovedMovies (index) {
-      const array = this.removedMovies
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.movies.showRemovedItems(index)
     },
     removeMovie (item, index) {
-      this.$store.commit('setLoading', true)
-      this.removedMovies.push(index)
-      database.ref('Movies').child(item.key).remove()
-    },
-    setNewOrder (index, el) {
-      const id = this.data.indexOf(el)
-      const deleted = this.data.splice(id, 1).toString()
-      if (this.orderedMovies === null) {
-        this.orderedMovies = []
-      }
-      this.orderedMovies.push({ id: deleted, index: index })
-      console.log(this.Movies[index])
-      database.ref('Movies/' + this.Movies[index].key).update({
-        order: el
-      })
-        .then(res => console.log(res))
-      console.log(this.Movies[index])
-    },
-    valueFunc (index) {
-      if (this.orderedMovies) {
-        const ID = this.orderedMovies.findIndex(x => x.index === index)
-        console.log(ID, this.orderedMovies)
-        if (ID !== -1) {
-          return this.orderedMovies[ID].id
-        }
-      }
+      const removed = this.movies.remove(item, index)
+      this.removedMovies = removed
     }
   },
-  computed: mapState({
-    Movies: 'movies',
-    movie: 'movie'
-  }),
+  computed: {
+    movies () {
+      const movies = new Section('Movies', null, this.removedMovies)
+      return movies
+    },
+    ...mapState({
+      Movies: 'movies',
+      movie: 'movie'
+    })
+  },
   created () {
     for (let i = 1; i < this.Movies.length + 1; i++) {
       this.data.push(i)

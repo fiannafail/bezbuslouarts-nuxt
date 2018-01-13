@@ -61,7 +61,7 @@ export class Section {
     updates[newKey] = this.item
     await database.ref().child(this.name).update(updates)
   }
-  async remove (item, index) {
+  remove (item, index) {
     this.removed.push(index)
     //  database.ref('Soundtracks').child(item.key).remove()
     return this.removed

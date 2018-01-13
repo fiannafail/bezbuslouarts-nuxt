@@ -88,7 +88,7 @@ section(class="media-section elevation-4")
 </template>
 <script>
 import { mapState } from 'vuex'
-import { addElement } from '~/plugins/functions.js'
+import { Section } from '~/plugins/functions.js'
 import { database } from '~/plugins/firebase-client-init.js'
 
 export default {
@@ -109,7 +109,7 @@ export default {
   methods: {
     async addIssue () {
       this.$store.commit('set', { type: 'issueAdding', items: true })
-      await addElement('Issues', this.issue)
+      await this.issues.add()
       await this.$store.dispatch('updateIssues')
       this.$store.commit('set', { type: 'issueAdding', items: false })
     },
@@ -123,33 +123,31 @@ export default {
     closeEditor (index) {
       const id = this.showEditor.indexOf(index)
       this.showEditor.splice(id, 1)
-      console.log(this.showEditor)
     },
     removeIssue (item, index) {
-      database.ref('Issues').child(item.key).remove()
-      this.revomedIssues.push(index)
-      console.log(item.key)
+      const removed = this.issues.remove(item, index)
+      this.revomedIssues = removed
     },
     showRemovedIssues (index) {
-      const array = this.revomedIssues
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.issues.showRemovedItems(index)
     },
     async editIssue (item) {
-      console.log(item)
       this.$store.commit('issueLoading', true)
       await database.ref().child('Issues/' + item.key).update(item)
       await this.$store.dispatch('IssueEdit')
     }
   },
-  computed: mapState({
-    Issues: 'issues',
-    issueAdding: 'issueAdding',
-    issueLoader: 'issueLoader'
-  })
+  computed: {
+    issues () {
+      const issues = new Section('Issues', this.issue, this.revomedIssues)
+      return issues
+    },
+    ...mapState({
+      Issues: 'issues',
+      issueAdding: 'issueAdding',
+      issueLoader: 'issueLoader'
+    })
+  }
 }
 </script>
 <style lang="scss" scoped>

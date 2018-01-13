@@ -7,7 +7,7 @@ section(class="partners-section elevation-4")
     h3 Карусель
     div(class="images-box")
       v-badge(overlay right color="red accent-4" overlap
-              v-for="(item, index) in PartnersImages" key="index"
+              v-for="(item, index) in PartnersImages" :key="index"
               v-bind:class="{ 'deleted': showRemovedPartnersImages(index) === true }"
               )
         v-icon(@click="removePartnersImage(item, index)" slot="badge" dark small) close
@@ -73,15 +73,13 @@ section(class="partners-section elevation-4")
 </template>
 <script>
 import { mapState } from 'vuex'
-import { database } from '~/plugins/firebase-client-init.js'
-import { addElement, baseElementUpdate } from '~/plugins/functions.js'
+import { addElement, baseElementUpdate, Section } from '~/plugins/functions.js'
 
 export default {
   methods: {
     removePartnersImage (item, index) {
-      this.removedPartnersImages.push(index)
-      console.log(this.deletedPartnersImages)
-      database.ref('PartnersImage').child(item.key).remove()
+      const removed = this.partnersImages.remove(item, index)
+      this.removedPartnersImages = removed
     },
     async addPartnersImage () {
       this.$store.commit('set', { type: 'partnersImagesAdding', items: true })
@@ -91,34 +89,24 @@ export default {
       this.$store.commit('set', { type: 'partnersImagesAdding', items: false })
     },
     removePartner (item, index) {
-      this.removedPartners.push(index)
-      database.ref('Partners').child(item.key).remove()
+      const removed = this.partners.remove(item, index)
+      this.removedPartners = removed
     },
     async addPartner () {
       this.$store.commit('set', { type: 'partnerAdding', items: true })
-      await addElement('Partners', this.partner)
+      await this.partners.add()
       await this.$store.dispatch('updatePartners')
       this.$store.commit('set', { type: 'partnerAdding', items: false })
     },
     editSectionMeta (ref) {
       console.log(ref)
-      baseElementUpdate('Texts', ref, this.SectionsMeta.Partners)
+      baseElementUpdate('Texts', ref, this.SectionsMeta.partners)
     },
     showRemovedPartnersImages (index) {
-      const array = this.removedPartnersImages
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.partnersImages.showRemovedItems(index)
     },
     showRemovedPartners (index) {
-      const array = this.removedPartners
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.partners.showRemovedItems(index)
     }
   },
   data: () => ({
@@ -141,13 +129,23 @@ export default {
       }
     }
   }),
-  computed: mapState({
-    PartnersImages: 'partnersImages',
-    partnersImagesAdding: 'partnersImagesAdding',
-    Partners: 'partners',
-    partnerAdding: 'partnerAdding',
-    sectionsMeta: 'sectionsMeta'
-  }),
+  computed: {
+    partners () {
+      const Partners = new Section('Partners', this.partner, this.removedPartners)
+      return Partners
+    },
+    partnersImages () {
+      const PartnersImages = new Section('PartnersImages', this.partnersImage, this.removedPartnersImages)
+      return PartnersImages
+    },
+    ...mapState({
+      PartnersImages: 'partnersImages',
+      partnersImagesAdding: 'partnersImagesAdding',
+      Partners: 'partners',
+      partnerAdding: 'partnerAdding',
+      sectionsMeta: 'sectionsMeta'
+    })
+  },
   created () {
     this.SectionsMeta = this.sectionsMeta
   }

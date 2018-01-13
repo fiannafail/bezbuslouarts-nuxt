@@ -12,6 +12,7 @@ const store = () => new Vuex.Store({
     user: null,
     data: '',
     all: '',
+    activeSlider: null,
     loading: false,
     movieEditing: false,
     issueLoader: false,
@@ -73,6 +74,9 @@ const store = () => new Vuex.Store({
       if (req.user) {
         commit('set', { type: 'user', items: req.user })
       }
+    },
+    changeSlide ({ commit }, payload) {
+      commit('set', { type: 'activeSlider', items: payload })
     },
     async updateScenariosMovies ({ commit }) {
       baseUpdate('child_added', 'Scenarios', (cb) => {

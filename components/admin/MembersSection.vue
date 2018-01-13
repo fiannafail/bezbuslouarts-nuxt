@@ -53,7 +53,7 @@
 <script>
 import { mapState } from 'vuex'
 import { database } from '~/plugins/firebase-client-init.js'
-import { addElement } from '~/plugins/functions.js'
+import { Section } from '~/plugins/functions.js'
 
 export default {
   data: () => ({
@@ -73,12 +73,7 @@ export default {
   props: ['Members'],
   methods: {
     showRemovedMembers (index) {
-      const array = this.removedMembers
-      for (let i = 0; i < array.length; i++) {
-        if (array[i] === index) {
-          return true
-        }
-      }
+      return this.members.showRemovedItems(index)
     },
     cancelEditing () {
       this.member = {
@@ -106,19 +101,25 @@ export default {
       }, 2500)
     },
     removeMember (item, index) {
-      this.removedMembers.push(index)
-      database.ref('Members').child(item.key).remove()
+      const removed = this.members.remove(item, index)
+      this.removedMembers = removed
     },
     async addMember () {
       this.$store.commit('set', { type: 'memberAdding', items: true })
-      await addElement('Members', this.member)
+      await this.members.add()
       await this.$store.dispatch('updateMembers')
       this.$store.commit('set', { type: 'memberAdding', items: false })
     }
   },
-  computed: mapState({
-    memberAdding: 'memberAdding'
-  })
+  computed: {
+    members () {
+      const members = new Section('Members', this.member, this.removedMembers)
+      return members
+    },
+    ...mapState({
+      memberAdding: 'memberAdding'
+    })
+  }
 }
 </script>
 <style scoped lang="scss">

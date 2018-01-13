@@ -1,100 +1,25 @@
 <template lang="pug">
-    div(class="body")
-      section(class="header-section")
-        header-section
-      section(class="preview-photos")
-        div(v-for="(item, index) in Movies" class="photo" @click="active = item.key" v-scroll-to="'#movies'")
-          div(class="photo-meta")
-            h2 {{ language === 'ru' ? item.title : item.titleEN }}
-          
-          img(v-lazy="item.preview")
-      section(class="movies-section" id="movies")
-        v-tabs(v-model="active" centered)
-          v-tabs-items
-            v-tabs-content(
-              v-for="(tab, i) in Movies"
-              v-bind:style="{ order: tab.order }"
-              :key="i"
-              :id="tab.key")
-              v-card(flat)
-                div(class="image-container"
-                    v-bind:style="{ backgroundImage: showMovieTrailer === false && showMovieInfo === false ? 'url(' + tab.image + ')' : 'none' }"
-                    v-bind:class="{ hidden: showMovieTrailer === true || showMovieInfo === true }"
-                    )
-                div(class="movie-meta")
-                  div(class="movie-info")
-                    p {{ tab.year }}
-                    h2(v-show="showMovieInfo === false") {{ language === 'ru' ? tab.title : tab.titleEN }}
-                  div(class="movie-wrap")
-                    div(class="movie-expand" v-show="showMovieTrailer === false && showMovieInfo === false")
-                      p(@click="showMovieInfo = true" class="arrow-right" v-lang.aboutMovie)
-                      p(@click="showMovieTrailer = true" class="arrow-right" v-lang.watchTrailer)
-                transition(name="fadeIn")
-                  div(class="movie-expanded-trailer" v-if="showMovieTrailer === true"
-                  v-bind:style="{ position: showMovieTrailer === true ? 'relative' : 'absolute' }"
-                  )
-                    youtube(:video-id="getId(tab.trailer)" width="1140" height="600" ref="youtube" @playing="playing")
-                transition(name="fadeIn")
-                  div(class="movie-expanded-info" v-show="showMovieInfo === true"
-                      v-bind:style="{ position: showMovieInfo === true ? 'relative' : 'absolute' }"
-                      )
-                    div(class="movie-info")
-                      h2 {{ language === 'ru' ? tab.title : tab.titleEN }}
-                      p(class="red-text") {{ language === 'ru' ? tab.year : tab.year }}
-                      p {{ language === 'ru' ? tab.descr : tab.descrEN }}
-                    div(class="movie-shots")
-                      div
-                        img(v-lazy="tab.thumb1")
-                      div
-                        img(v-lazy="tab.thumb2")
-                      div
-                        img(v-lazy="tab.thumb3")
-                      div
-                        img(v-lazy="tab.thumb4")
-                      div
-                        img(v-lazy="tab.thumb5")
-                      div
-                        img(v-lazy="tab.thumb6")
-            div(class="movie-footer")
-              p(@click="showMovieInfo === true ? showMovieInfo = false : showMovieTrailer = false" v-show="showMovieInfo === true || showMovieTrailer === true"
-                class="backlink arrow-left" v-lang.toProjects
-                v-scroll-to="'#movies'"
-                v-bind:class="{ single: showMovieTrailer === false }"
-                )
-              p(v-show="showMovieTrailer === true" class="backlink arrow-right" @click="showMovieInfo = true, showMovieTrailer = false" v-lang.aboutMovie)
-            v-tabs-bar(dark v-show="showMovieInfo !== true && showMovieTrailer !== true")
-              v-tabs-item(
-                  v-for="(tab, index) in Movies"
-                  :key="index"
-                  :href="'#' + tab.key")
-      section(class="partnership-section")
-        p(v-lang.cooperation)
-        div(class="wrapper")
-          div(class="description")
-            h2(class="section-headline") {{ language === 'ru' ? sectionsMeta.Partners.title : sectionsMeta.Partners.titleEN }}
-            p(class="red-text") {{ language === 'ru' ? sectionsMeta.Partners.subheader : sectionsMeta.Partners.subheaderEN}}
-            p {{ language === 'ru' ? sectionsMeta.Partners.text : sectionsMeta.Partners.textEN}}
-            no-ssr
-              carousel(:perPage="3" class="partners")
-                slide(v-for="(item, index) in Partners" :key="index")
-                  div
-                    img(v-lazy="item.url")
-          div(class="partners-slider")
-            v-carousel(delimiter-icon="remove" hide-controls :lazy="true")
-              v-carousel-item(v-for="(item, index) in PartnersImages" v-bind:src="item.image" :key="index")
-      scenarios-section
-      soundtrack-section
-      members-section(:Members="members")
-      media-section
-      contacts-section
+  div(class="body")
+    header-section
+    movies-slider-section
+    movies-section
+    partners-section
+    scenarios-section
+    soundtrack-section
+    members-section(:Members="members")
+    media-section
+    contacts-section
 </template>
 
 <script>
 //  import axios from '~/plugins/axios'
+import MoviesSliderSection from '../components/MoviesSliderSection'
 import MembersSection from '../components/MembersSection'
 import HeaderSection from '../components/HeaderSection'
 import SoundtrackSection from '../components/SoundtrackSection'
+import PartnersSection from '../components/PartnersSection'
 import ScenariosSection from '../components/ScenariosSection'
+import MoviesSection from '../components/MoviesSection'
 import ContactsSection from '../components/ContactsSection'
 import MediaSection from '../components/MediaSection'
 import VueAudio from 'vue-audio'
@@ -132,8 +57,11 @@ export default {
   components: {
     HeaderSection,
     MembersSection,
+    MoviesSliderSection,
     ContactsSection,
     MediaSection,
+    MoviesSection,
+    PartnersSection,
     SoundtrackSection,
     ScenariosSection,
     'vue-audio': VueAudio,
@@ -153,6 +81,7 @@ export default {
     previewPhotos: 'previewPhotos',
     sectionsMeta: 'sectionsMeta',
     members: 'members',
+    activeSlider: 'activeSlider',
     language: 'language'
   }),
   head () {

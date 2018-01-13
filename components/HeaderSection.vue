@@ -1,4 +1,5 @@
 <template lang="pug">
+section(class="header-section")
   div(id="HeaderSection")
     div(class="logo")
     div(class="wrapper")

@@ -11,9 +11,7 @@
 
 
 ## Admin page
-![Admin page]
-
-(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/git%2F151585103328708382444.png?alt=media&token=605d00e5-32d2-493e-a1b9-54c800188d5e)
+![Admin page](https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/git%2F151585103328708382444.png?alt=media&token=605d00e5-32d2-493e-a1b9-54c800188d5e)
 
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).

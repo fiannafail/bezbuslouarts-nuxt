@@ -31,7 +31,6 @@ require('vue-animate-transitions/dist/vue-animate-transitions.min.css')
 export default {
   async asyncData ({ store }) {
     return Promise.all([
-      store.dispatch('getPreviewPhotos'),
       store.dispatch('getMovies'),
       store.dispatch('getIssues'),
       store.dispatch('getSoundtracks'),
@@ -77,8 +76,6 @@ export default {
     Movies: 'movies',
     Issues: 'issues',
     data: 'data',
-    all: 'all',
-    previewPhotos: 'previewPhotos',
     sectionsMeta: 'sectionsMeta',
     members: 'members',
     activeSlider: 'activeSlider',
@@ -146,240 +143,13 @@ a {
   background-image: url(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/img.png?alt=media&token=ed824509-052b-4389-9049-b5e0b721bddb);
   background-size: cover;
 }
-.partnership-section {
-  background-color: #202020;
-  margin-top: 150px;
-  padding-bottom: 125px;
-  .partners {
-    img {
-      width: 120px;
-      filter: grayscale(100%)
-    }
-    .VueCarousel-inner {
-      align-items: center;
-    }
-  }
-  .partners-slider {
-    padding-top: 70px;
-  }
-  .carousel {
-    height: 450px;
-    box-shadow: none;
-    .carousel__item {
-      height: calc(100% - 50px);
-    }
-  }
-  .wrapper {
-    width: 1180px;
-    margin: 0 auto;
-    display: flex;
-    & > * {
-      width: 50%
-    }
-  }
-  .description {
-    padding: 55px 0;
-    padding-right: 65px;
-    p {
-      color: #bbbbbb;
-      font-family: 'Open Sans';
-      font-size: 14px;
-      line-height: 1.93;
-      color: #bbbbbb;
-    }
-    .red-text {
-      @include red-text;
-      margin: 25px 0;
-      margin-top: 10px;
-    }
-  }
-  & > p {
-    @include red-text;
-    text-align: center;
-    margin-top: 25px;
-  }
-  &:before {
-    @include red-line;
-    position: relative;
-    left: calc(50% - 1px);
-  }
-}
-.media-section {
-  height: 800px;
-  background-color: #222222;
-  & > p {
-    @include red-text;
-    margin-top: 25px;
-    text-align: center;
-  }
-  .section-headline {
-    text-align: center;
-    margin-bottom: 60px;
-  }
-  .meta-info {
-    text-align: left;
-    padding: 20px;
-  }
-  img {
-    width: 100%
-  }
-  .VueCarousel-slide {
-    max-height: 350px;
-    .meta-info {
-      h3 {
-        color: #ffffff;
-        font-family: Merriweather;
-        font-size: 14px;
-        line-height: 1.57;
-      }
-      p {
-        color: #bababa;
-        font-family: Open Sans;
-        font-size: 13px;
-        line-height: 1.92;
-        margin-bottom: 0;
-      }
-      width: 100%;
-    }
-    & > div {
-      border: solid 1px #4d4d4d;
-      border-radius: 3px;
-      margin: 15px;
-      justify-content: center;
-      align-items: center;
-      display: flex;
-      flex-direction: column;
-    }
-  }
-  .VueCarousel {
-    width: 1180px;
-    margin: 0 auto;
-  }
-  &:before {
-    @include red-line;
-    position: relative;
-    left: calc(50% - 1px);
-  }
-}
 .section-headline {
   font-family: Merriweather;
   font-size: 40px;
   color: white;
   text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
 }
-@mixin movie-expanded-window {
-  width: 1140px;
-  height: 100%;
-  position: absolute;
-  background-color: #252525;
-}
-.movie-expanded-trailer {
-  @include movie-expanded-window;
-}
-.movie-expanded-info {
-  @include movie-expanded-window;
-  padding: 10px;
-  color: white;
-  display: flex;
-  position: relative;
-  .movie-info {
-    padding: 35px;
-    .red-text {
-      @include red-text;
-      padding: 10px 0;
-    }
-    p {
-      font-family: Open Sans;
-      font-size: 14px;
-      color: #bbbbbb;
-      line-height: 1.93;
-    }
-    h2 {
-      font-family: Merriweather;
-      font-size: 40px;
-      color: #ffffff;
-      text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
-    }
-    p {
 
-    }
-  }
-  .movie-shots {
-    display: flex;
-    flex-wrap: wrap;
-    overflow: hidden;
-    max-height: 600px;
-    img {
-      width: 100%;
-    }
-    & > div {
-      margin-right: 10px;
-      margin-bottom: 10px;
-      width: calc(50% - 5px;);
-      &:nth-child(2n) {
-        margin-right: 0;
-      }
-    }
-  }
-  & > div {
-    flex: 1 1;
-  }
-}
-.movie-footer {
-  display: flex;
-  width: 1140px;
-  margin: 0 auto;
-  justify-content: space-between;
-  order: 99;
-  & > .single {
-    width: 100%;
-  }
-}
-.movie-wrap {
-  display: flex;
-  align-items: flex-end;
-}
-.movie-meta {
-  width: 1140px;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: space-between;
-  font-family: Open Sans;
-  font-weight: 600;
-  color: white;
-  h2 {
-    font-family: Merriweather;
-    text-shadow: 0 0 10px rgba(24, 24, 24, 0.5);
-    font-size: 55px;
-    line-height: 1;
-  }
-  .movie-expand {
-    text-transform: uppercase;
-    p {
-      margin-bottom: 10px;
-      letter-spacing: 0;
-      cursor: pointer;
-    }
-    &:after {
-      @include red-line;
-    }
-  }
-  .movie-info {
-    p {
-      padding: 24px 0;
-      margin-bottom: 0;
-      color: #e02106;
-    }
-    &:before {
-      display: block;
-      content: "";
-      height: 125px;
-      width: 2px;
-      background-color: #e02106;
-    }
-  }
-}
 @mixin arrow {
   display: inline-block;
   line-height: 1;
@@ -388,70 +158,6 @@ a {
   position: absolute;
   color: #e02106;
   font-family: roboto;
-}
-.movies-section {
-  background-color: #181818;
-  margin-top: 150px;
-  .movie-info {
-
-  }
-  .tabs__items {
-    display: flex;
-    flex-direction: column;
-  }
-
-  .arrow-left {
-    position: relative;
-    &:before {
-      @include arrow;
-      content: "←";
-    }
-    &.backlink:before {
-      padding: 24px 0;
-      margin-left: -32px;
-    }
-  }
-  .arrow-right {
-    position: relative;
-    &:after {
-      @include arrow;
-      content: "\2192";
-    }
-    &.backlink:after {
-      padding: 24px 0;
-      margin-right: 24px;
-    }
-  }
-  .backlink {
-    color: white;
-    font-family: Open Sans;
-    font-weight: 600;
-    color: white;
-    text-transform: uppercase;
-    cursor: pointer;
-    text-align: center;
-    padding: 24px;
-    position: relative;
-  }
-  .tabs__bar {
-    margin-top: 45px;
-    height: 3px;
-    order: 100;
-  }
-  .image-container {
-    background-size: cover;
-    background-position: center;
-    width: 800px;
-    height: 600px;
-  }
-  .card--flat {
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    .card__text {
-      position: absolute;
-    }
-  }
 }
 .title
 {
@@ -475,19 +181,7 @@ a {
     background-color: red;
   }
 }
-.preview-photos {
-  display: flex;
-  & > div {
-    flex: 1 1;
-    overflow: hidden;
-    & > img {
-      width: 100%;
-    }
-  }
-  & img {
-    width: 100%;
-  }
-}
+
 .photo {
   position: relative;
   cursor: pointer;
@@ -526,7 +220,7 @@ a {
   .movie-expanded-info {
     flex-direction: column;
   }
-  .preview-photos {
+  .movies-slider {
     flex-direction: column;
     height: auto;
     margin-bottom: 35px;

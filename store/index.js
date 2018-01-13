@@ -11,7 +11,6 @@ const store = () => new Vuex.Store({
     language: 'ru',
     user: null,
     data: '',
-    all: '',
     activeSlider: null,
     loading: false,
     movieEditing: false,
@@ -157,7 +156,6 @@ const store = () => new Vuex.Store({
     },
     async IssueEdit ({ commit }) {
       baseUpdate('value', 'Issues', (cb) => {
-        //  console.log(cb)
         commit('set', { type: 'issues', items: cb })
       })
       commit('issueLoading', false)
@@ -166,7 +164,6 @@ const store = () => new Vuex.Store({
       commit('setLoading', true)
       const userData = await Auth.signInWithEmailAndPassword(payload.email, payload.password)
       commit('set', { type: 'user', items: { email: userData.email, uid: userData.uid } })
-      //  console.log(this.state.user)
       commit('setLoading', false)
     },
     async getMovies ({ commit }) {
@@ -177,7 +174,6 @@ const store = () => new Vuex.Store({
           const childData = child.val()
           array.push(childData)
         })
-        //  console.log(array)
         commit('set', { type: 'movies', items: array })
       } catch (err) {
         console.log(err)
@@ -192,7 +188,6 @@ const store = () => new Vuex.Store({
           array.push(childData)
         })
         commit('set', { type: 'issues', items: array })
-        //  console.log(this.state.issues)
       } catch (err) {
         console.log(err)
       }
@@ -215,7 +210,6 @@ const store = () => new Vuex.Store({
           array.push(childData)
         })
         commit('set', { type: 'previewPhotos', items: array })
-        //  console.log(this.state.previewPhotos)
       } catch (err) {
         console.log(err)
       }

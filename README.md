@@ -1,30 +1,18 @@
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9d8d0faaadee06844b80e800f7a821e7be2feb5e
->>>>>>> c15ea9890f173843084faaf029bf9b0747418af6
-# bezbuslouarts
+# Bezbuslouarts
 
 > Nuxt.js project
 
-## Build Setup
+## Server-side rendering landing page and content managment page base on Nuxt framework
 
-``` bash
-# install dependencies
-$ npm install # Or yarn install
+### https://bezbuslouarts.herokuapp.com/
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+## Landing page
+(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/git%2F151585103328708382.png?alt=media&token=12fff143-e9ae-4cd8-8475-58e263e66a72)
 
-# build for production and launch server
-$ npm start
-```
+
+## Admin Page
+
+(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/git%2F151585103328708382444.png?alt=media&token=605d00e5-32d2-493e-a1b9-54c800188d5e)
+
 
 For detailed explanation on how things work, checkout the [Nuxt.js docs](https://github.com/nuxt/nuxt.js).
-
-## Backpack
-
-We use [backpack](https://github.com/palmerhq/backpack) to watch and build the application, so you can use the latest ES6 features (module syntax, async/await, etc.).
-

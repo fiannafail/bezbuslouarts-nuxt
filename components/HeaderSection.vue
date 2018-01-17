@@ -67,7 +67,7 @@ export default {
     width: 300px;
     height: 74px;
     top: 25px;
-    background-image: url(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/logo.png?alt=media&token=754cd17d-f10d-48ba-9927-45bcf8631637)
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/bezbuslouarts.appspot.com/o/logotype.png?alt=media&token=73bfd649-7eff-4658-baa2-47c1b984c515)
   }
 }
 .section-footer {
